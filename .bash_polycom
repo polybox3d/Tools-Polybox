@@ -1,0 +1,7 @@
+
+#===Env.===
+. /home/poly/linuxcnc/scripts/rip-environment
+
+#===Alias===
+
+alias fabScan="/home/poly/FabScan100/qtTest/FabScan100"
