@@ -18,3 +18,4 @@ cmake ..
 make -j 2
 sudo make install
 sudo ldconfig
+cd ~/

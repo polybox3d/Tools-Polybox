@@ -5,3 +5,4 @@
 #===Alias===
 
 alias fabScan="/home/poly/FabScan100/qtTest/FabScan100"
+alias qmake5="/usr/lib/i386-linux-gnu/qt5/bin/qmake"

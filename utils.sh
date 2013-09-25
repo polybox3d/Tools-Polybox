@@ -2,18 +2,26 @@
 
 
 function print_check_error() {
-    RET_ERROR=$?
+   RET_ERROR=$?
     if [ $RET_ERROR -ne 0 ]; then
 	echoC "$RED" "=====>ERROR [$RET_ERROR]. You should check why."
 	echo "Script aborted."
 
 	resetC
-	exit 42
+	exit $RET_ERROR
     else
 	echoC "$GREEN" "=====>Done."
 	resetC
     fi
 
+ 
+}
+
+function close_if_error() {
+    RET_ERROR=$?
+    if [ $RET_ERROR -ne 0 ]; then
+	exit $RET_ERROR
+    fi
 }
 
 function print_bye() {
