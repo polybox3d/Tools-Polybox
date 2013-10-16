@@ -1,4 +1,15 @@
 
+
+/******************************************************************
+ *
+ * @author: Skapin <skapinthefourb@gmail.com>
+ * @since: Oct. 2013
+ * 
+ * Multiplexer for virtual serial device. Handle input and dipstach to the corretc device.
+ * Virtual device name shoudl be created with another software. 
+ * Look virtu-serial for futher information about this
+ *
+ ******************************************************************/
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,23 +33,25 @@
  #define VERBOSE 1
 #endif
 
+/*  Debug printf to stderr.   */
 #define eprintf(fmt, ...) \
             do { if (VERBOSE) fprintf (stderr, fmt, ##__VA_ARGS__) ; } while (0)
 
+/*  Globals Vars. */
 struct pollfd fds[FD_NUMBER];
 char input_buffer[FD_NUMBER][BUFFER_SIZE];
 int baudrate = 115200;
 int printer=2, poly=1, serial=0;
 int i;
 
+
 void abandon(char r[])
 {
-
   perror(r);
   exit(EXIT_FAILURE);
 }
 
-
+/*  Define a fd as a pty/serial file with a given baudrate.  */
 void set_as_pty(int fd, int baudrate)
 {
   /* serial port parameters */
@@ -61,7 +74,7 @@ void set_as_pty(int fd, int baudrate)
   tcsetattr(fd, TCSANOW, &newtio);
 
 }
-
+/*  process serial event */
 void handle_serial()
 {
   int nbr_read=0;
@@ -72,12 +85,12 @@ void handle_serial()
 	{
 	  eprintf("[serial] {%s}\n",input_buffer[serial]);
 			  
-	  /* We parse data  */
+	  /* @todo We parse data . well..we will do it...soon  */
 	  write( fds[serial].fd, input_buffer[serial], nbr_read);
 	}
     }
 }
-
+/*  process prinetr event  */
 void handle_printer()
 {
   int nbr_read=0;
@@ -94,7 +107,7 @@ void handle_printer()
 	}
     }
 }
-
+/*  process polybox event */
 void handle_poly()
 {
   int nbr_read=0;
@@ -108,7 +121,7 @@ void handle_poly()
 	}
     }  
 }
-
+/*  open a given device and store it inside fds struct */
 int init_stream(char* devicename, int device_id)
 {
   eprintf("[%s]\n",devicename);
@@ -124,7 +137,7 @@ int init_stream(char* devicename, int device_id)
   fds[device_id].events = POLLIN;
   return 0;
 }
-
+/*  init all stream/device  */
 int init_streams( char* serial_name, char* virtu_poly_name, char* virtu_printer_name)
 {
   color_text(BLUE);
@@ -150,6 +163,15 @@ int init_streams( char* serial_name, char* virtu_poly_name, char* virtu_printer_
   color_reset();
   return 1;
 }
+
+/*******************************************************/
+/*   Well... The main...                               */
+/*  1) handle arg                                      */
+/*  2)  init streams                                   */
+/*  3) loop                                            */
+/*    3.1) wait for even on fds descriptos             */
+/*    3.2) handle the event                            */
+/*******************************************************/
 int main(int argc, char* argv[])
 {
 
