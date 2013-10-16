@@ -23,7 +23,7 @@ if [ "$start_script" != "Y" ]; then
     resetC
     exit 0
 fi
-echoC "$BLUE" "===>Install basics paquages..." 
+echoC "$BLU" "===>Install basics paquages..." 
 resetC
 
 sudo apt-get update
@@ -64,13 +64,13 @@ print_check_error
 
 sudo apt-get -y install qtdeclarative5-dev qtmobility-dev
 print_check_error
-sudo apt-get -y install qt5-default qttools5-dev-tools qtmultimedia5-dev libqt5opengl5-dev mesa-common-dev
+sudo apt-get -y install qt5-default qttools5-dev-tools qtmultimedia5-dev libqt5opengl5-dev mesa-common-dev qtcreator
 print_check_error
 #Qt4.x
 #sudo apt-get install libqt4-dev qt4-qmake r-base-dev libcurl4-gnutls-dev
 #sudo apt-get install libqt4-dev libphonon-dev libqt4-opengl-dev libqt4-opengl
 
 #sudo apt-get install freeglut3 freeglut3-dev
-print_bye()
+print_bye
 
 exit 0

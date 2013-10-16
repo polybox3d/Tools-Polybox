@@ -1,0 +1,12 @@
+#!/bin/sh
+# ############################################
+# Author: SkapiN <skapinthefourb@gmail.com>
+# Date: October 2013
+#
+# Create two pseudo-terminal to
+# simulate serial port for ICP.
+# 
+##############################################
+exec /usr/bin/socat -d -d pty,link=/dev/ttyVIRT0,raw,echo=0 pty,link=/dev/ttyVIRT1,raw,echo=0
+
+

@@ -14,6 +14,9 @@ print_check_ok
 
 sudo cp ./img/logo_vintage_halfcolor.png /usr/share/wallpapers/Ariya/contents/images/1920x1200.png
 
+#====virtu-serial
+./setup-virtu-serial-deamon.sh
+
 #====Plasma
 echoC "$BLU" "=====>Create and configure Plasma (widget,panel and theme)."
 resetC
