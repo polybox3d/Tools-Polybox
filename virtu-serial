@@ -7,6 +7,9 @@
 # simulate serial port for ICP.
 # 
 ##############################################
-exec /usr/bin/socat -d -d pty,link=/dev/ttyVIRT0,raw,echo=0 pty,link=/dev/ttyVIRT1,raw,echo=0
+ /usr/bin/socat -d -d pty,link=/dev/ttyVIRT0,raw,echo=0 pty,link=/dev/ttyVIRT1,raw,echo=0 &
+
+ /usr/bin/socat -d -d pty,link=/dev/ttyVIRT2,raw,echo=0 pty,link=/dev/ttyVIRT3,raw,echo=0 &
 
 
+kill -STOP "$$";
