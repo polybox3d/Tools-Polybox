@@ -26,6 +26,10 @@
 #define FD_NUMBER 3
 #define ARG_SIZE 1024
 #define BUFFER_SIZE 1024*4
+#define DATA_READY 0
+#define DATA_CLEARED_OVERFLOW 42
+#define DATA_WAITING_MORE 1
+#define DATA_NOTHING_NEW 2
 
 #ifndef VERBOSE 
  #define VERBOSE 0
@@ -40,10 +44,12 @@
 /*  Globals Vars. */
 struct pollfd fds[FD_NUMBER];
 char input_buffer[FD_NUMBER][BUFFER_SIZE];
+char tmp_buffer[BUFFER_SIZE];
+int current_size[FD_NUMBER]={0,0,0};
 int baudrate = 115200;
+//int baudrate = 9600;
 int printer=2, poly=1, serial=0;
 int i;
-
 
 void abandon(char r[])
 {
@@ -74,53 +80,43 @@ void set_as_pty(int fd, int baudrate)
   tcsetattr(fd, TCSANOW, &newtio);
 
 }
-/*  process serial event */
-void handle_serial()
+
+int read_stream(int fd_id)
 {
   int nbr_read=0;
-  if (fds[i].revents & POLLIN) 
+  nbr_read = read( fds[fd_id].fd, tmp_buffer, BUFFER_SIZE);
+  if ( nbr_read > 0 ) /*  some datat to read */
     {
-      nbr_read = read( fds[serial].fd, input_buffer[serial], BUFFER_SIZE);
-      if ( nbr_read > 0 )
+      current_size[fd_id] += nbr_read; /* We move the string tail mem. */
+      if ( current_size[fd_id] > BUFFER_SIZE ) /*  Is too much data ? */
 	{
-	  eprintf("[serial] {%s}\n",input_buffer[serial]);
-			  
-	  /* @todo We parse data . well..we will do it...soon  */
-	  write( fds[serial].fd, input_buffer[serial], nbr_read);
+	  color_text(RED);
+	  eprintf("===[ERROR]  Way too much data... I can't handle it. Deleting the buffer for: %d\n", fd_id );
+	  color_reset();
+
+	  memset(input_buffer[fd_id], 0, sizeof(input_buffer[fd_id]));
+	  current_size[fd_id]=0;
+	  return DATA_CLEARED_OVERFLOW;
 	}
+      else
+	{
+	  strcat( input_buffer[fd_id], tmp_buffer ); /*  We copy the tmp string inside the correct buffer */
+	  char* pos = strchr( tmp_buffer,'\n');
+	  if ( pos != NULL ) /* end found  */
+	    {
+	      return DATA_READY;
+	    }
+	  else
+	    {
+	      return DATA_WAITING_MORE;
+	    }
+	}
+      //	  eprintf("===> %s\n",input_buffer[fd_id]);
+      //	  write( fds[rial].fd, input_buffer[printer], nbr_read);
     }
+  return DATA_NOTHING_NEW;
 }
-/*  process prinetr event  */
-void handle_printer()
-{
-  int nbr_read=0;
-  /* INPUT ---- NEED TO READ    Printer -----> Serial       */
-  if (fds[i].revents & POLLIN) 
-    {
-      nbr_read = read( fds[printer].fd, input_buffer[printer], BUFFER_SIZE);
-      if ( nbr_read > 0 )
-	{
-	  
-	  eprintf("[printer]\n");
-	  eprintf("===> %s\n",input_buffer[printer]);
-	  write( fds[serial].fd, input_buffer[printer], nbr_read);
-	}
-    }
-}
-/*  process polybox event */
-void handle_poly()
-{
-  int nbr_read=0;
-  if (fds[i].revents & POLLIN) 
-    {
-      nbr_read = read( fds[poly].fd, input_buffer[poly], BUFFER_SIZE);
-      if ( nbr_read > 0 )
-	{
-	  eprintf("[poly]\n");
-	  write( fds[serial].fd, input_buffer[poly], nbr_read);
-	}
-    }  
-}
+
 /*  open a given device and store it inside fds struct */
 int init_stream(char* devicename, int device_id)
 {
@@ -164,6 +160,12 @@ int init_streams( char* serial_name, char* virtu_poly_name, char* virtu_printer_
   return 1;
 }
 
+void clear_stream(int fd_id)
+{
+  memset(input_buffer[fd_id], 0, sizeof(input_buffer[fd_id]));
+  current_size[fd_id] = 0;
+}
+
 /*******************************************************/
 /*   Well... The main...                               */
 /*  1) handle arg                                      */
@@ -185,6 +187,7 @@ int main(int argc, char* argv[])
   char virtu_poly_name[ARG_SIZE];
   int polyplexer_on = 1;
   char hellocommand="Hello ! I'm PolyPlexer v0.4\n";
+  char* pos;
 
   /* Handle args  */
   if ( argc < 4 )
@@ -207,7 +210,7 @@ int main(int argc, char* argv[])
   color_reset();
 
   /* We say HELLO ! Cause we are nice :p (and because we dont want binary stream FFS ! */
-  write( fds[serial].fd, hellocommand, sizeof(hellocommand));
+  //  write( fds[serial].fd, hellocommand, sizeof(hellocommand));
 
   while ( polyplexer_on )
     {
@@ -218,22 +221,41 @@ int main(int argc, char* argv[])
 	  /* An event on one of the fds has occurred. */
 	  for (i=0; i<FD_NUMBER; i++)
 	    {
-	      /*  Reinit vars  */
-	      memset(input_buffer, 0, sizeof(input_buffer));
-	      /*   PRINTER FD  */
-	      if( i == printer )
+	      /* INPUT ---- NEED TO READ    */
+	      if (fds[i].revents & POLLIN) 
 		{
-		  handle_printer();
-		}
-	      /*   SERIAL FD    Serial ---------> Printer OR Poly (need parse)*/
-	      else if( i == serial )
-		{
-		  handle_serial();
-		}
-	      /*   POLY FD  Poly -------> Serial */
-	      else if( i == poly )
-		{
-		  handle_poly();
+		  
+		  if ( read_stream(i) == DATA_READY )
+		    {
+		      if( i == printer )
+			{
+			  eprintf("[printer]\n");
+			  write( fds[serial].fd, input_buffer[printer], current_size[printer]);
+			  clear_stream(printer);
+			}
+		      else if( i == serial )
+			{
+			  eprintf("[serial]\n");
+			  eprintf("[%s]\n", input_buffer[serial]);
+
+			  pos = strchr( input_buffer[serial], '#'); /*  polybox data ?? */ /* CARE , check if the FULL data contain #, not only the begining... @todo */
+			  if ( pos != NULL )
+			    {
+			      write( fds[poly].fd, input_buffer[serial], current_size[serial] );
+			    }
+			  else /* rest for printer software == prevent add of of code. Since polybox code are always prefixed with # */ 
+			    {
+			      write( fds[printer].fd, input_buffer[serial], current_size[serial] );
+			    }
+			  clear_stream(serial);
+			}
+		      else if( i == poly )
+			{
+			  eprintf("[poly]\n");
+			  write( fds[serial].fd, input_buffer[poly], current_size[poly] );
+			  clear_stream(poly);
+			}
+		    }
 		}
 	    }
 	}
@@ -251,5 +273,8 @@ int main(int argc, char* argv[])
       
       
     }// end of while() loop
+  color_text(BLUE);
+  eprintf("BYE !\n");
+  color_reset();
   return EXIT_SUCCESS;
 }
