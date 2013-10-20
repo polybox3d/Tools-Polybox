@@ -16,6 +16,7 @@ sudo cp ./img/logo_vintage_halfcolor.png /usr/share/wallpapers/Ariya/contents/im
 
 #====virtu-serial
 ./setup-virtu-serial-deamon.sh
+./setup-polyplexer-deamon.sh
 
 #====Plasma
 echoC "$BLU" "=====>Create and configure Plasma (widget,panel and theme)."
