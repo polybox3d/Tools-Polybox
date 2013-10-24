@@ -2,6 +2,9 @@
 #define CONTROLEWIDGET_H
 
 #include <QWidget>
+#include <QFileDialog>
+
+#include "JoypadWidget.h"
 
 namespace Ui {
 class ControleWidget;
@@ -13,10 +16,17 @@ class ControleWidget : public QWidget
 
 public:
     explicit ControleWidget(QWidget *parent = 0);
+    void addJoypadOverlay( JoypadWidget* joy) { _joypad = joy;}
     ~ControleWidget();
+
+private slots:
+    void on_saveConf_clicked();
+
+    void on_laodConf_clicked();
 
 private:
     Ui::ControleWidget *ui;
+    JoypadWidget* _joypad;
 };
 
 #endif // CONTROLEWIDGET_H

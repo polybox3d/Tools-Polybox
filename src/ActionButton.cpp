@@ -27,6 +27,19 @@ ActionButton::ActionButton(QString name, int id, QWidget *parent) :
     this->adjustSize();
 
 }
+Action* ActionButton::currentAction()
+{
+
+    foreach( Action* act, Action::actions )
+    {
+        if ( act->_id == this->itemData( this->currentIndex() ).toInt() )
+        {
+            return act;
+        }
+    }
+
+    return NULL;
+}
 
 
 void ActionButton::mousePressEvent(QMouseEvent *event)
@@ -63,6 +76,16 @@ void ActionButton::setActionList( const QStringList &value)
     this->addItems( value );
     this->adjustSize();
 }
+
+void ActionButton::setList( QList<Action*> list )
+{
+    foreach( Action* act, list )
+    {
+        this->addItem( act->_name, act->_id);
+    }
+    this->adjustSize();
+}
+
 void ActionButton::setListPosition(ActionButton::Position position)
 {
 

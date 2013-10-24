@@ -35,8 +35,10 @@ public:
 
     void setImage( QString image_nochecked, QString image_checked="" );
     void setActionList( const QStringList &value);
+    void setList( QList<Action*> list);
     void setListPosition( ActionButton::Position position );
     void setAutoHide( ActionButton::HideFlag );
+    Action *currentAction();
 
     static bool is_floating;
     QString name() { return _name; }

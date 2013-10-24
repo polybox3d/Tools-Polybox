@@ -27,7 +27,9 @@ public:
     void processActionsList();
     void setJoypadImage( QString image );
 
-    void exportCurrentOverlay();
+    void exportCurrentOverlay( QString filename );
+    void exportConfig(QString name);
+    QString name(){return _name;}
 
 protected:
 
@@ -38,6 +40,8 @@ private:
 
     QString _name;
     int _device_id;
+    QString _overlayfile;
+    QString _actiosnfile;
     void parseButton( QXmlStreamReader* xml );
     void parseAction( QXmlStreamReader* xml );
     QList<ActionButton*> _actionButton;

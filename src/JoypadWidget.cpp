@@ -12,11 +12,40 @@ JoypadWidget::~JoypadWidget()
 {
     delete ui;
 }
+void JoypadWidget::exportConfig( QString name )
+{
+    QFile* file = new QFile( name );
+    if (!file->open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::critical( this,
+                              "Save to XML file",
+                              "Couldn't write to ",
+                              QMessageBox::Ok);
+        return;
+    }
+    QXmlStreamWriter xml(file);
+    xml.setAutoFormatting(true);
+    xml.writeStartDocument();
 
-void JoypadWidget::exportCurrentOverlay()
+    xml.writeStartElement("config");
+    xml.writeTextElement("overlay-file", _overlayfile );
+    xml.writeTextElement("action-file", _actiosnfile );
+    foreach ( ActionButton* act, _actionButton )
+    {
+        xml.writeStartElement("assoc");
+        xml.writeTextElement("button-id", QString::number(act->id()) );
+        xml.writeTextElement("action-id", QString::number(act->currentAction()->_id) );
+        xml.writeEndElement();//color
+    }
+    xml.writeEndElement();//overlay-joypad
+    xml.writeEndDocument();
+    file->close();
+
+}
+
+void JoypadWidget::exportCurrentOverlay( QString filename)
 {
 
-    QFile* file = new QFile("overlay_cc.xml");
+    QFile* file = new QFile( filename );
     if (!file->open(QIODevice::WriteOnly | QIODevice::Text)) {
         QMessageBox::critical( this,
                               "Save to XML file",
@@ -43,11 +72,6 @@ void JoypadWidget::exportCurrentOverlay()
     xml.writeEndElement();//overlay-joypad
     xml.writeEndDocument();
     file->close();
-
-
-
-
-
 }
 
 void JoypadWidget::setJoypadImage(QString image)
@@ -71,6 +95,7 @@ void JoypadWidget::importActions(QString filename)
     if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
     }
+    _actiosnfile = filename;
     QXmlStreamReader xml(file);
     while(!xml.atEnd() && !xml.hasError())
     {
@@ -96,17 +121,19 @@ void JoypadWidget::importActions(QString filename)
 }
 void JoypadWidget::processActionsList()
 {
-    QStringList list;
+ /*   QStringList list;
     list.reserve( Action::actions.size() );
     foreach( Action* act, Action::actions )
     {
         list.append( act->_name );
     }
-
+*/
     foreach(ActionButton* ab, _actionButton)
     {
-        ab->setActionList( list );
+        //ab->setActionList( list );
+        ab->setList( Action::actions );
     }
+
 }
 
 void JoypadWidget::parseAction(QXmlStreamReader *xml)
@@ -149,6 +176,7 @@ void JoypadWidget::importOverlay(QString filename)
     if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
     }
+    _overlayfile = filename;
     QXmlStreamReader xml(file);
     while(!xml.atEnd() && !xml.hasError())
     {
@@ -170,6 +198,11 @@ void JoypadWidget::importOverlay(QString filename)
                 {
                     xml.readNext();
                     xml.text().toInt() ;
+                }
+                if(xml.name() == "IMG")
+                {
+                    xml.readNext();
+                    this->setJoypadImage( xml.text().toString() ) ;
                 }
                 if(xml.name() == "button") {
                     parseButton( &xml );

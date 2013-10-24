@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDialog>
+#include <QFileDialog>
 
 #include "ActionButton.h"
 #include "Action.h"
