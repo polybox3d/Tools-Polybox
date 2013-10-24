@@ -1,0 +1,21 @@
+<actions>
+    <action>
+        <name>Action1</name>
+        <id>0</id>
+        <code>tototo</code>
+        <type>3</type>
+    </action>
+    <action>
+        <name>Action2</name>
+        <id>2</id>
+        <code>cccc</code>
+        <type>3</type>
+    </action>
+    <action>
+        <name>Button</name>
+        <id>3</id>
+        <code>plop</code>
+        <type>2</type>
+    </action>
+
+</actions>
