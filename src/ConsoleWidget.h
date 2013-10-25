@@ -37,6 +37,7 @@ private slots:
 private:
     Ui::ConsoleWidget *ui;
     JoypadWidget* _joypad;
+    bool _edited;
 };
 
 #endif // CONSOLEWIDGET_H

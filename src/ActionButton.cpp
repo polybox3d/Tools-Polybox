@@ -6,27 +6,52 @@ bool ActionButton::is_floating=false;
 ActionButton::ActionButton(QWidget *parent) :
     QComboBox(parent)
 {
-    //this->setGeometry( this->x(), this->y(), 60, 60);
-    //_button = new QPushButton("Button", this);
-    //_list = new QComboBox( this );
-
-    //_button->setCheckable( true );
-    //_button->setFlat( true );
     this->adjustSize();
 }
 
 ActionButton::ActionButton(QString name, int id, QWidget *parent) :
     QComboBox(parent)
 {
-    //this->setGeometry( this->x(), this->y(), 400, 60);
- //   this->setGeometry( this->x(), this->y(), 60, 60);
-   // _list = new QComboBox( this );
-
     _name = name;
     _id = id;
     this->adjustSize();
-
 }
+void ActionButton::setCurrentActionById(int id)
+{
+    QString txt;
+    foreach( Action* act, Action::actions )
+    {
+        if ( act->_id == id )
+        {
+            txt = act->_name;
+        }
+    }
+    int ret = this->findText( txt );
+    if ( ret != -1 )
+    {
+        this->setCurrentIndex( ret );
+    }
+    else
+    {
+
+    }
+}
+
+void ActionButton::showButtonName()
+{
+    this->clear();
+    this->addItem( _name );
+    this->adjustSize();
+}
+
+void ActionButton::showActionList()
+{
+    this->clear();
+    this->setList( _savedlist );
+    this->adjustSize();
+}
+
+
 Action* ActionButton::currentAction()
 {
 
@@ -66,19 +91,9 @@ void ActionButton::mouseMoveEvent(QMouseEvent *event)
     QComboBox::mouseMoveEvent(event);
 }
 
-
-void ActionButton::setImage( QString image_nochecked, QString image_checked )
-{
-}
-
-void ActionButton::setActionList( const QStringList &value)
-{
-    this->addItems( value );
-    this->adjustSize();
-}
-
 void ActionButton::setList( QList<Action*> list )
 {
+    _savedlist = list;
     foreach( Action* act, list )
     {
         this->addItem( act->_name, act->_id);
@@ -86,13 +101,3 @@ void ActionButton::setList( QList<Action*> list )
     this->adjustSize();
 }
 
-void ActionButton::setListPosition(ActionButton::Position position)
-{
-
-    this->adjustSize();
-
-}
-void ActionButton::setAutoHide( ActionButton::HideFlag )
-{
-
-}

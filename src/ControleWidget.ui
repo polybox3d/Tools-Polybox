@@ -52,6 +52,19 @@
     <string>Save Configuration</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="openJoypad">
+   <property name="geometry">
+    <rect>
+     <x>349</x>
+     <y>10</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open JoyPad...</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

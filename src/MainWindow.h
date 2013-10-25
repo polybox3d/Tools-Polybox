@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <iostream>
+
+using namespace std;
 
 #include "ActionButton.h"
 
@@ -15,6 +18,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void loadJoystick();
     ~MainWindow();
 
 private:

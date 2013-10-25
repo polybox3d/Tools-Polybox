@@ -7,6 +7,12 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QMessageBox>
+#include <iostream>
+
+#include "qjoystick.h"
+#include "qjoystickenumerator.h"
+
+using namespace std;
 
 #include "ActionButton.h"
 
@@ -19,6 +25,8 @@ class JoypadWidget : public QWidget
     Q_OBJECT
 
 public:
+
+    QJoystick* joystick;
     explicit JoypadWidget(QWidget *parent = 0);
     ~JoypadWidget();
 
@@ -28,8 +36,21 @@ public:
     void setJoypadImage( QString image );
 
     void exportCurrentOverlay( QString filename );
-    void exportConfig(QString name);
+
+    void exportConfig(QString filename);
+    void loadConfig( QString filename );
+
+    void showButtonId();
+    void showActionList();
     QString name(){return _name;}
+    void resetActionButton();
+    void setColorButton( int id );
+
+public slots:
+
+    void updateAxis(int n,short v);
+    void updateButton(int n, bool v);
+
 
 protected:
 
@@ -39,6 +60,7 @@ private:
     Ui::JoypadWidget *ui;
 
     QString _name;
+    QString _image;
     int _device_id;
     QString _overlayfile;
     QString _actiosnfile;

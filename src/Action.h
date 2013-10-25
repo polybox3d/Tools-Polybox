@@ -3,6 +3,11 @@
 
 #include <QString>
 #include <QList>
+#include <QFile>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QMessageBox>
+
 
 class Action
 {
@@ -12,14 +17,16 @@ public:
     };
 
     Action();
-    Action(int id, QString name, QString code, Action::Type type=(Action::Type)(Action::Button|Action::Axis) );
+    Action( QString name, QString code, Action::Type type=(Action::Type)(Action::Button|Action::Axis) );
 
     int _id;
     QString _name;
     QString _code;
     Action::Type _type;
     static QList<Action*> actions;
-    static void exportCurrentAction();
+    static int next_id;
+    static void exportAction(QString filename);
+    static void addAction( Action* action );
 };
 
 #endif // ACTION_H

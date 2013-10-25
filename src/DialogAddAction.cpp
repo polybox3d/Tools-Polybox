@@ -21,4 +21,5 @@ void DialogAddAction::on_cancel_clicked()
 void DialogAddAction::on_add_clicked()
 {
     this->accept();
+    Action::addAction( new Action(ui->actionName->text(),ui->code->toPlainText(), Action::Type (Action::Axis|Action::Button) ));
 }

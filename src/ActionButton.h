@@ -33,12 +33,12 @@ public:
     explicit ActionButton(QWidget *parent = 0);
     ActionButton(QString name, int id, QWidget *parent);
 
-    void setImage( QString image_nochecked, QString image_checked="" );
     void setActionList( const QStringList &value);
     void setList( QList<Action*> list);
-    void setListPosition( ActionButton::Position position );
-    void setAutoHide( ActionButton::HideFlag );
+    void showButtonName();
+    void showActionList();
     Action *currentAction();
+    void setCurrentActionById(int id);
 
     static bool is_floating;
     QString name() { return _name; }
@@ -56,6 +56,7 @@ private:
    //  QComboBox* _list;
      QString _name;
      int _id;
+     QList<Action*> _savedlist;
      QPoint _offset;
 
 };

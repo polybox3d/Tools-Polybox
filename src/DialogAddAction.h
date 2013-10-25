@@ -2,6 +2,9 @@
 #define DIALOGADDACTION_H
 
 #include <QDialog>
+#include <QTextEdit>
+
+#include "Action.h"
 
 namespace Ui {
 class DialogAddAction;

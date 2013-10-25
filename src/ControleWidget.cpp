@@ -29,5 +29,22 @@ void ControleWidget::on_saveConf_clicked()
 
 void ControleWidget::on_laodConf_clicked()
 {
-    //_joypad->
+    if ( _joypad != NULL )
+    {
+        QString filename = QFileDialog::getOpenFileName(this,tr("Select a config file"), ".", tr("Config Files (*.xml)") );
+        if ( filename != NULL )
+        {
+         //   Action::actions.clear();
+            _joypad->loadConfig( filename );
+        }
+    }
+}
+
+void ControleWidget::on_openJoypad_clicked()
+{
+    QJoystick *nJoystick = QJoystickEnumerator::enumerate("/dev/input", this);
+    if(nJoystick != NULL)
+    {
+
+    }
 }

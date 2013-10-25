@@ -19,6 +19,8 @@ SOURCES += main.cpp\
     Action.cpp \
     ConsoleWidget.cpp \
     ControleWidget.cpp \
+    qjoystick.cpp \
+    qjoystickenumerator.cpp \
     DialogAddAction.cpp
 
 HEADERS  += MainWindow.h \
@@ -27,12 +29,15 @@ HEADERS  += MainWindow.h \
     Action.h \
     ConsoleWidget.h \
     ControleWidget.h \
+    qjoystick.h \
+    qjoystickenumerator.h \
     DialogAddAction.h
 
 FORMS    += MainWindow.ui \
     JoypadWidget.ui \
     ConsoleWidget.ui \
     ControleWidget.ui \
+    qjoystickenumerator.ui \
     DialogAddAction.ui
 
 RESOURCES += \

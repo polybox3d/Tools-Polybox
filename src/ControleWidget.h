@@ -5,6 +5,8 @@
 #include <QFileDialog>
 
 #include "JoypadWidget.h"
+#include "qjoystick.h"
+#include "qjoystickenumerator.h"
 
 namespace Ui {
 class ControleWidget;
@@ -23,6 +25,8 @@ private slots:
     void on_saveConf_clicked();
 
     void on_laodConf_clicked();
+
+    void on_openJoypad_clicked();
 
 private:
     Ui::ControleWidget *ui;
