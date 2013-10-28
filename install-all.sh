@@ -58,6 +58,7 @@ while [[ "$current_state" != "Done" ]]; do
 	    
 	cnc-2 )
 	    ./install-cnc-2.sh
+	    ./install-joypadoverlay.sh
 	    close_if_error
 	    echo "scan" > $state_file;;
 	scan )
