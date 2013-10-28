@@ -10,6 +10,7 @@ QJoystickEnumerator::QJoystickEnumerator(QString directory, QWidget *parent) : Q
     refreshTimer = new QTimer();
     refreshTimer->start(1000);
     connect(refreshTimer, SIGNAL(timeout()), this, SLOT(refreshList()));
+    connect(ui->joystickList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(accept()));
 }
 
 QJoystickEnumerator::~QJoystickEnumerator() { delete ui; }
@@ -39,8 +40,14 @@ void QJoystickEnumerator::refreshList() {
 }
 
 QJoystick* QJoystickEnumerator::getJoystick() {
-    if(ui->joystickList->selectedItems().count() < 1) return NULL;
-    QListWidgetItem *item = ui->joystickList->selectedItems().at(0);
+    if(ui->joystickList->selectedItems().count() < 1)
+    {
+        return NULL;
+    }
+    return getJoystick(ui->joystickList->selectedItems().at(0) );
+}
+
+QJoystick* QJoystickEnumerator::getJoystick(QListWidgetItem* item) {
     return QJoystick::openJoystick(item->toolTip(), 1);
 }
 

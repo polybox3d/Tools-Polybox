@@ -61,7 +61,7 @@ private:
 
     QString _name;
     QString _image;
-    int _device_id;
+    QString _device_id;
     QString _overlayfile;
     QString _actiosnfile;
     void parseButton( QXmlStreamReader* xml );

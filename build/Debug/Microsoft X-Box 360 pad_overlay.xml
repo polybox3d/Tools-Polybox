@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <joypad-overlay>
-    <name>Microsoft X-Box 360 pad</name>
+    <name>X-Box</name>
     <id>0</id>
     <img>xbox.png</img>
     <button>
@@ -66,14 +66,38 @@
     <button>
         <name>btn-thumbr</name>
         <id>10</id>
-        <x>363</x>
-        <y>286</y>
+        <x>431</x>
+        <y>311</y>
+    </button>
+    <button>
+        <name>btn-axis-l</name>
+        <id>11</id>
+        <x>12</x>
+        <y>112</y>
+    </button>
+    <button>
+        <name>btn-axis-r</name>
+        <id>12</id>
+        <x>66</x>
+        <y>65</y>
     </button>
     <button>
         <name>abs-z-is-pos</name>
         <id>13</id>
         <x>158</x>
         <y>4</y>
+    </button>
+    <button>
+        <name>btn-axis-ll</name>
+        <id>14</id>
+        <x>244</x>
+        <y>175</y>
+    </button>
+    <button>
+        <name>btn-axis-rr</name>
+        <id>15</id>
+        <x>340</x>
+        <y>283</y>
     </button>
     <button>
         <name>abs-rz-is-pos</name>
@@ -84,13 +108,13 @@
     <button>
         <name>abs-unk-is-pos</name>
         <id>17</id>
-        <x>15</x>
-        <y>227</y>
+        <x>37</x>
+        <y>216</y>
     </button>
     <button>
         <name>abs-unk2-is-pos</name>
         <id>18</id>
-        <x>213</x>
-        <y>284</y>
+        <x>142</x>
+        <y>286</y>
     </button>
 </joypad-overlay>

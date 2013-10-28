@@ -7,6 +7,7 @@
 #include "JoypadWidget.h"
 #include "qjoystick.h"
 #include "qjoystickenumerator.h"
+#include "linuxcncmodule.h"
 
 namespace Ui {
 class ControleWidget;
@@ -27,6 +28,8 @@ private slots:
     void on_laodConf_clicked();
 
     void on_openJoypad_clicked();
+
+    void on_applyCNC_clicked();
 
 private:
     Ui::ControleWidget *ui;

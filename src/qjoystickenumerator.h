@@ -22,9 +22,13 @@ class QJoystickEnumerator : public QDialog
 public:
     explicit QJoystickEnumerator(QString directory, QWidget *parent = 0);
     ~QJoystickEnumerator();
-    QJoystick* getJoystick();
+
 
     static QJoystick* enumerate(QString jsDir, QWidget *parent = 0);
+public slots:
+
+    QJoystick* getJoystick();
+    QJoystick* getJoystick(QListWidgetItem* item);
 
 private:
     Ui::QJoystickEnumerator *ui;

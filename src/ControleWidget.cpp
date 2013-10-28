@@ -48,3 +48,40 @@ void ControleWidget::on_openJoypad_clicked()
 
     }
 }
+
+void ControleWidget::on_applyCNC_clicked()
+{
+    if ( _joypad != NULL )
+    {
+        QString filename = QFileDialog::getExistingDirectory(this, tr("Your Mill directory"),
+                                                             "/home/poly/linuxcnc/configs/",
+                                                             QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+        if ( filename != NULL )
+        {
+            LinuxCNCModule cnc(filename, _joypad);
+            if ( cnc.checkHalFile() == 0 ) // 0 = no error
+            {
+                if ( cnc.addInputDevice( _joypad->name() ) == 0 )
+                {
+                    QMessageBox::information( this,
+                                          "Done ! ",
+                                        "Your joypad "+_joypad->name()+" is added in LinuxCNC !",
+                                          QMessageBox::Ok);
+                }
+                else
+                {
+                    QMessageBox::critical( this,
+                                          "Error While opening ",
+                                          "Couldn't open the file",
+                                          QMessageBox::Ok);
+                }
+            }
+            else {
+                QMessageBox::critical( this,
+                                      "Error While opening or reading",
+                                      "Couldn't open the given directory or soemthing went wrong. Like no HALFILE specified",
+                                      QMessageBox::Ok);
+            }
+        }
+    }
+}

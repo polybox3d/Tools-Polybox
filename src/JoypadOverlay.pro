@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     ControleWidget.cpp \
     qjoystick.cpp \
     qjoystickenumerator.cpp \
-    DialogAddAction.cpp
+    DialogAddAction.cpp \
+    linuxcncmodule.cpp
 
 HEADERS  += MainWindow.h \
     ActionButton.h \
@@ -31,7 +32,8 @@ HEADERS  += MainWindow.h \
     ControleWidget.h \
     qjoystick.h \
     qjoystickenumerator.h \
-    DialogAddAction.h
+    DialogAddAction.h \
+    linuxcncmodule.h
 
 FORMS    += MainWindow.ui \
     JoypadWidget.ui \

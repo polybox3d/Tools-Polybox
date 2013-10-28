@@ -1,21 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <actions>
     <action>
-        <name>Action1</name>
-        <id>0</id>
-        <code>tototo</code>
+        <name>Stop</name>
+        <code>M115</code>
         <type>3</type>
     </action>
     <action>
-        <name>Action2</name>
-        <id>2</id>
-        <code>cccc</code>
+        <name>Start</name>
+        <code>M1</code>
         <type>3</type>
     </action>
     <action>
-        <name>Button</name>
-        <id>3</id>
-        <code>plop</code>
-        <type>2</type>
+        <name>Test</name>
+        <code>444</code>
+        <type>3</type>
     </action>
-
+    <action>
+        <name>Test2</name>
+        <code>44466</code>
+        <type>3</type>
+    </action>
 </actions>

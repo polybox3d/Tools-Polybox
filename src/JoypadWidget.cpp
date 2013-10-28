@@ -179,7 +179,7 @@ void JoypadWidget::exportCurrentOverlay( QString filename)
 
     xml.writeStartElement("joypad-overlay");
     xml.writeTextElement("name", _name);
-    xml.writeTextElement("id", QString::number(_device_id) );
+    xml.writeTextElement("id", _device_id );
     xml.writeTextElement("img", _image);
     foreach ( ActionButton* act, _actionButton )
     {
@@ -325,7 +325,7 @@ void JoypadWidget::importOverlay(QString filename)
                 if(xml.name() == "device-id")
                 {
                     xml.readNext();
-                    xml.text().toString().toInt() ;
+                    _device_id = xml.text().toString() ;
                 }
                 if(xml.name() == "img")
                 {
