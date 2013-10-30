@@ -14,7 +14,7 @@ void MainWindow::loadJoystick()
     if(nJoystick != NULL)
     {
         ui->centralWidget->joystick = nJoystick;
-        ui->centralWidget->loadConfig( nJoystick->getInfo().name+"_conf.xml" );
+        ui->centralWidget->loadConfig( "./config/"+nJoystick->getInfo().name+"_conf.xml" );
 
         ui->dockWidgetContents->addJoypadOverlay( ui->centralWidget );
         ui->dockWidgetContents_2->addJoypadOverlay( ui->centralWidget );

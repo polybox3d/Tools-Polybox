@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = JoypadOverlay
 TEMPLATE = app
 
+INCLUDEPATH += ../config/
+
 
 SOURCES += main.cpp\
         MainWindow.cpp \
@@ -42,5 +44,4 @@ FORMS    += MainWindow.ui \
     qjoystickenumerator.ui \
     DialogAddAction.ui
 
-RESOURCES += \
-    ressources.qrc
+RESOURCES +=
