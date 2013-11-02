@@ -1,13 +1,22 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
-Encoding=UTF-8
-Version=
-Type=Application
-Exec=/home/poly/joypadoverlay/src/JoypadOverlay
-Icon=/home/poly/joypadoverlay/img/icon.png
-X-GNOME-DocPath=
-Terminal=false
-Name=JoypadOverlay
-Comment=Start JoypadOverlay software
-StartupNotify=false
 Categories=X-PAD;
+Comment[en_US]=Start JoypadOverlay software
+Comment=Start JoypadOverlay software
+Encoding=UTF-8
+Exec=/home/poly/joypadoverlay/src/JoypadOverlay
+GenericName[en_US]=
+GenericName=
+Icon=/home/poly/joypadoverlay/img/icon.png
+MimeType=
+Name=JoypadOverlay
+Path=/home/poly/joypadoverlay/src
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

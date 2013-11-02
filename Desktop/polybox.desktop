@@ -1,13 +1,22 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
-Encoding=UTF-8
-Version=
-Type=Application
-Exec=/home/poly/polybox
-Icon=/home/poly/polybox/src/img/logo_400.png
-X-GNOME-DocPath=
-Terminal=false
-Name=PolyBox
-Comment=Start PolyBox software
-StartupNotify=false
 Categories=X-POLY;
+Comment[en_US]=Start PolyBox software
+Comment=Start PolyBox software
+Encoding=UTF-8
+Exec=/home/poly/polybox/src/polybox
+GenericName[en_US]=
+GenericName=
+Icon=/home/poly/polybox/src/img/logo_400.png
+MimeType=
+Name=PolyBox
+Path=/home/poly/polybox/src
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
