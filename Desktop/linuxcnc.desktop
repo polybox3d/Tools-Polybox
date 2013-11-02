@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Version=
+Type=Application
+Exec=/home/poly/linuxcnc/scripts/emc
+Icon=/home/poly/linuxcnc/linuxcncicon.png
+X-GNOME-DocPath=
+Terminal=false
+Name=LinuxCNC
+Comment=Start LinuxCNC software
+StartupNotify=false
+Categories=X-CNC;

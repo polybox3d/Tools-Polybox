@@ -12,11 +12,17 @@ cp .bash_polycom ~/
 source ~/.bashrc
 print_check_ok
 
-sudo cp ./img/logo_vintage_halfcolor.png /usr/share/wallpapers/Ariya/contents/images/1920x1200.png
+sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/contents/images/1920x1200.png
 
 #====virtu-serial
 ./setup-virtu-serial-deamon.sh
 ./setup-polyplexer-deamon.sh
+
+#===Create Desktop/icon
+echoC "$BLU" "=====>Create and setup Desktop Icon ."
+cp ./Desktop/* ~/Dekstop/
+resetC
+
 
 #====Plasma
 echoC "$BLU" "=====>Create and configure Plasma (widget,panel and theme)."
