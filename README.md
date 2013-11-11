@@ -15,3 +15,13 @@ YOU need to RESTART this main script after each reboot, till the script end.
 It's very important. If you dont restart the script, no magic will happends and you will miss some important part.
 
 
+=======
+JoypadOverlay
+=============
+
+JoypadOverlay can be use to affect action to specific joypad controler.
+
+
+src/config/ fodler emabbed joypad file, such as configuration image or actions.
+You need to copy this folder inside the build directory (for example .../build/Debug  or  .../build/Release)
+

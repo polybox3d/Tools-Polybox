@@ -14,14 +14,15 @@ resetC
 
 #===Start Joypad software===
 cd ~/
-git clone https://github.com/skapin/JoypadOverlay.git
-cd JoypadOverlay
-qmake
+git clone https://github.com/skapin/JoypadOverlay.git joypadoverlay
+cd joypadoverlay/src/
+/usr/lib/i386-linux-gnu/qt5/bin/qmake
 make
 
 
 
-cd ~/
+cd $MY_DIR
+echo "git pull ~/joypadoverlay/" >> git-update.sh
 
 print_bye
 resetC

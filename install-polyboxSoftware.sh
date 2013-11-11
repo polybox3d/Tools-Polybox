@@ -15,7 +15,14 @@ cd ~/
 git clone https://github.com/skapin/polybox.git
 cd polybox
 git submodule update --init --recursive
-cd ~/
+cd src/
+/usr/lib/i386-linux-gnu/qt5/bin/qmake
+print_check_error
+make
+print_check_error
+
+cd $MY_DIR
+echo "git pull ~/polybox/" >> git-update.sh
 
 print_bye
 resetC

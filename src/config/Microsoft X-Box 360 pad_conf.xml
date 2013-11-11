@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <overlay-file>./config/Microsoft X-Box 360 pad_overlay.xml</overlay-file>
+    <action-file>./config/actions_polybox.xml</action-file>
+    <assoc>
+        <button-id>1</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>2</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>3</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>4</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>5</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>6</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>7</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>8</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>9</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>10</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>11</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>12</button-id>
+        <action-id>0</action-id>
+    </assoc>
+    <assoc>
+        <button-id>13</button-id>
+        <action-id>0</action-id>
+    </assoc>
+</config>

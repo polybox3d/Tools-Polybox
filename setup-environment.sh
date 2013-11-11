@@ -39,6 +39,15 @@ sleep 2
 
 plasma-desktop
 
+#=== Script Git-update
+sudo cp git-update.sh /etc/init.d/git-update
+#give right
+sudo chmod +x /etc/init.d/git-update
+#update rc file for auto-start at boot
+echoC "$BLU" "===>Update RC file"
+sudo update-rc.d git-update defaults
+
+
 print_bye
 
 exit 0
