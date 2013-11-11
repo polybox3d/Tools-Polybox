@@ -39,13 +39,23 @@ sleep 2
 
 plasma-desktop
 
-#=== Script Git-update
+#====Script Git-update
+echoC "$BLU" "=====>Setup Auto-Git-update script."
+resetC
 sudo cp git-update.sh /etc/init.d/git-update
 #give right
 sudo chmod +x /etc/init.d/git-update
 #update rc file for auto-start at boot
 echoC "$BLU" "===>Update RC file"
 sudo update-rc.d git-update defaults
+
+
+#==== Screen+touchscreen
+echoC "$BLU" "=====>Configure Xorg and TouchScreen."
+resetC
+sudo cp 10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
+sudo cp xorg.conf /etc/X11/xorg.conf
+
 
 
 print_bye
