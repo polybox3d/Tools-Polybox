@@ -1,5 +1,6 @@
 #!/bin/bash
 
+LINUX_CNC_FOLDER=linuxcnc
 #Is your kernel patched ? (real time with Xenomai)
 if [ `uname -r |grep xenomai | wc -l` -gt 0  ];
 then
@@ -24,7 +25,7 @@ sudo dpkg -i xenomai-runtime_2.6.1_i386.deb
 
 #===Get and install LinuxCNC===
 cd ~/
-git clone git://git.mah.priv.at/emc2-dev.git linuxcnc
+git clone git://git.mah.priv.at/emc2-dev.git $LINUX_CNC_FOLDER
 cd linuxcnc
 #By default, you will get files from "master", which is not what we want - there is a good branch: 
 git branch --track rtos-integration-preview3 origin/rtos-integration-preview3
@@ -57,12 +58,15 @@ sudo make setuid
 sudo adduser "$USER" xenomai
 sudo adduser "$USER" kmem
 
-sudo rmmod lp
-
+#we blacklist lp module....
+sudo sh -c 'echo "blacklist lp" >> /etc/modprobe.d/blacklist.conf'
+sudo update-initramfs -u
+cp -R polybox-milling-conf cd~/$LINUX_CNC_FOLDER/configs/Polybox-v1
 #===Start Tests===
 . ../scripts/rip-environment
 runtests
 latency-test
+
 
 
 echo "End."
