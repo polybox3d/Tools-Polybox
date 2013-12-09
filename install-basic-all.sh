@@ -32,7 +32,7 @@ print_check_error
 echoC "$BLU" "*Tools: "
 resetC
 
-sudo apt-get -y install vlc firefox picocom xinput_calibrator glade
+sudo apt-get -y install vlc firefox picocom xinput_calibrator glade python-setuptools
 print_check_error
 
 echoC "$BLU" "*Documentation: "
@@ -47,8 +47,11 @@ resetC
 sudo apt-get -y install devscripts debhelper dh-kpatches findutils build-essential libreadline-dev xsltproc groff python-lxml libglu1-mesa-dev libgl1-mesa-dev libglib2.0-dev libgtk2.0-dev python-gtksourceview2 python-gnome2-desktop-dev python-gnome2-extras-dev python-xlib
 print_check_error
 
-sudo apt-get -y install libeigen3-dev build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy python-tk libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common python-gtkglext1
+sudo apt-get -y install libeigen3-dev build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy python-tk libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common python-gtkglext1 python-vte
 print_check_error
+
+sudo easy_install py-notify
+
 
 sudo apt-get -y install libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libpulse-dev
 print_check_error
