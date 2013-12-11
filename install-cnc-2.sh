@@ -11,29 +11,14 @@ else
     exit 0
 fi
 
-
-cd /tmp/
-#===Fetch===
-wget http://static.mah.priv.at/public/xenomai-debs/libxenomai1_2.6.1_i386.deb
-wget http://static.mah.priv.at/public/xenomai-debs/libxenomai-dev_2.6.1_i386.deb
-wget http://static.mah.priv.at/public/xenomai-debs/xenomai-runtime_2.6.1_i386.deb
-#===Install After rebbot and Xenomai up===
-
-sudo dpkg -i libxenomai1_2.6.1_i386.deb
-sudo dpkg -i libxenomai-dev_2.6.1_i386.deb
-sudo dpkg -i xenomai-runtime_2.6.1_i386.deb
-
 #===Get and install LinuxCNC===
 cd ~/
-git clone git://git.mah.priv.at/emc2-dev.git $LINUX_CNC_FOLDER
-cd linuxcnc
-#By default, you will get files from "master", which is not what we want - there is a good branch: 
-git branch --track rtos-integration-preview3 origin/rtos-integration-preview3
-git checkout rtos-integration-preview3
+git clone https://github.com/zultron/linuxcnc.git $LINUX_CNC_FOLDER
+cd $LINUX_CNC_FOLDER
 
 #Install the build dependencies - this will pull in all packages required to compile linuxcnc:
 cd debian
-./configure sim
+./configure -a
 cd ..
 #This will show a list of packages missing (if any)
 dpkg-checkbuilddeps
@@ -54,9 +39,7 @@ if [ $? -ne 0 ]; then
     exit
 fi
 sudo make setuid
-#===Add right===
-sudo adduser "$USER" xenomai
-sudo adduser "$USER" kmem
+sudo make log
 
 #we blacklist lp module....
 sudo sh -c 'echo "blacklist lp" >> /etc/modprobe.d/blacklist.conf'

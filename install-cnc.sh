@@ -20,22 +20,60 @@ resetC
 
 sudo apt-get -y install python-gtk2 libglade2-dev python-glade2 python-gnome2
 print_check_error
-sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev
+sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev libtk-dev zlib1g-dev
 print_check_error
 
-cd /tmp/
-#===Fetch===
-wget http://static.mah.priv.at/public/xenomai-debs/linux-headers-3.2.21-xenomai+_0.4_i386.deb
-print_check_error
-wget http://static.mah.priv.at/public/xenomai-debs/linux-image-3.2.21-xenomai+_0.4_i386.deb
-print_check_error
-#===Install===
 
-sudo dpkg -i linux-headers-3.2.21-xenomai+_0.4_i386.deb
+echoC "$BLU" "\n
+#########################################################\n
+# Xenomai Kernel Packages\n
+# John Morris (zultron on freenode) has put up package \n
+# repositories containing Xenomai packages for\n
+#  Precise, Squeeze and Lucid. \n
+#\n
+# Special thanks to him and his team. Really !\n
+#########################################################\n"
+
+# Set CODENAME as appropriate for your environment
+# should be one of 'precise', 'lucid', 'squeeze'; set manually if you get something different
+CODENAME=$(lsb_release -cs); echo $CODENAME
+# Add the repository to /etc/apt/sources.list
+echo "deb http://deb.machinekit.net/$CODENAME $CODENAME main" | sudo tee -a /etc/apt/sources.list 
 print_check_error
-sudo dpkg -i linux-image-3.2.21-xenomai+_0.4_i386.deb
+echo "deb-src http://deb.machinekit.net/$CODENAME $CODENAME main" | sudo tee -a /etc/apt/sources.list
+print_check_error
+# update the package list
+sudo apt-get update
+# Install the package containing the signing keys; answer 'y' to install despite missing keys
+sudo apt-get -y install zultron-keyring
+print_check_error
+# Install the xenomai run-time tools and headers (for building LCNC)
+sudo apt-get -y install xenomai-runtime libxenomai-dev
+print_check_error
+# Install the xenomai-patched kernel
+sudo apt-get -y install linux-image-3.5.7-xenomai-2.6.2.1
 print_check_error
 
+#########################################################
+#          RealTek r8168 NIC chipset problems  
+#
+# The r8169 driver is finicky when driving an r8168 NIC,
+# and won't drive it at 1Gb in any case. 
+# The Xenomai patches break it entirely.
+#########################################################
+
+r8169=`lspci | grep 8168 | wc -l`
+
+# does the computer need this driver ??
+if [ "$r8169" != "0" ]; then
+    sudo apt-get -y install kmod-r8168-modules-3.5.7-xenomai-2.6.2.1
+    sudo update-initramfs -u -k 3.5.7-xenomai-2.6.2.1
+    print_check_error
+fi
+#===Add right===
+sudo adduser "$USER" xenomai
+sudo adduser "$USER" kmem
+    
 print_bye
 
 echoC "$ROSE" "You need to restart your computer now."
