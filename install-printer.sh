@@ -27,11 +27,12 @@ tar -xzf repetierHostLinux.tgz
 cd RepetierHost
 sh configureFirst.sh
 
-usermod -a -G dialout $(whoami)
+sudo usermod -a -G dialout $(whoami)
 
 
 echoC "$BLU" "===>Download Printer Firmware..." 
-reset cd
+resetC
+cd ~
 git clone https://github.com/skapin/Repetier-Firmware.git
 
 

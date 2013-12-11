@@ -21,6 +21,7 @@ sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/conte
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
 cp ./Desktop/* ~/Dekstop/
+cp ./Desktop/* ~/Bureau/
 resetC
 
 
@@ -33,11 +34,12 @@ sudo cp manipulatePanel.js $PLASMA_DIR
 sudo cp addDock.js $PLASMA_DIR
 echoC "$ROSE" "====[ Killing your plasma environement for a few moment...]====="
 killall plasma
+kbuildsycoca4 && kquitapp plasma-desktop
 echoC "$ROSE" "====>Restarting plasma-desktop in 2s..."
 resetC
 sleep 2
 
-plasma-desktop
+kstart plasma-desktop &
 
 #====Script Git-update
 echoC "$BLU" "=====>Setup Auto-Git-update script."

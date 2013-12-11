@@ -70,6 +70,10 @@ while [[ "$current_state" != "Done" ]]; do
 	printer )
 	    ./install-printer.sh
 	    close_if_error
+	    echo "polybox" > $state_file;;
+	polybox )
+	    ./install-polyboxSoftware.sh
+	    close_if_error
 	    echo "setup-env" > $state_file;;
 	setup-env )
 	    ./setup-environment.sh

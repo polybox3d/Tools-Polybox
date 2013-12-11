@@ -23,27 +23,27 @@ sudo adduser "$USER" dialout
 
 
 #======FAB SCAN100======
-echoC "$BLU" "=====>Fetch Scanning software"
-resetC
-cd ~/
+#echoC "$BLU" "=====>Fetch Scanning software"
+#resetC
+#cd ~/
 
-if [ -d "$SCAN_LASER_DIR" ]; then
-    rm -Rf "$SCAN_LASER_DIR"
-fi
-git clone git://github.com/skapin/FabScan100.git "$SCAN_LASER_DIR"
-print_check_error
-cd "$SCAN_LASER_DIR"
-print_check_error
+#if [ -d "$SCAN_LASER_DIR" ]; then
+#    rm -Rf "$SCAN_LASER_DIR"
+#fi
+#git clone git://github.com/skapin/FabScan100.git "$SCAN_LASER_DIR"
+#print_check_error
+#cd "$SCAN_LASER_DIR"
+#print_check_error
 #======Compile FabScan======
-echoC "$BLU" "=====>Compile"
-resetC
+#echoC "$BLU" "=====>Compile"
+#resetC
 
-cd qtTest/
-/usr/lib/i386-linux-gnu/qt5/bin/qmake
-print_check_error
-make
-print_check_error
+#cd qtTest/
+#/usr/lib/i386-linux-gnu/qt5/bin/qmake
+#print_check_error
+#make
+#print_check_error
 
-print_bye
+#print_bye
 
 exit 0

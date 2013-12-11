@@ -32,7 +32,7 @@ print_check_error
 echoC "$BLU" "*Tools: "
 resetC
 
-sudo apt-get -y install vlc firefox picocom xinput_calibrator glade python-setuptools
+sudo apt-get -y install vlc firefox picocom xinput-calibrator glade python-setuptools
 print_check_error
 
 echoC "$BLU" "*Documentation: "
