@@ -20,7 +20,7 @@ resetC
 
 sudo apt-get -y install python-gtk2 libglade2-dev python-glade2 python-gnome2
 print_check_error
-sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev libtk-dev zlib1g-dev
+sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev libtk-dev zlib1g-dev libtk-img
 print_check_error
 
 
