@@ -41,10 +41,19 @@ fi
 sudo make setuid
 sudo make log
 
-#we blacklist lp module....
+# we blacklist lp module...
+# this module block LinuxCNC startUp.
 sudo sh -c 'echo "blacklist lp" >> /etc/modprobe.d/blacklist.conf'
+# stop start up loading 
+sudo sh -c 'echo "" > /etc/modules'
+# stop lp load with CUPS
+sudo sh -c 'echo "LOAD_LP_MODULE=no" > /etc/default/cups'
+# update boot img
 sudo update-initramfs -u
+
+#===Copy miling configuration file===
 cp -R polybox-milling-conf cd~/$LINUX_CNC_FOLDER/configs/Polybox-v1
+
 #===Start Tests===
 . ../scripts/rip-environment
 runtests
