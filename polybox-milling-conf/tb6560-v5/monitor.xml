@@ -1,0 +1,134 @@
+<pyvcp>
+	<labelframe text="Jog Buttons">
+    <font>("Helvetica",16)</font>
+
+      <!-- the X jog buttons -->
+      <hbox>
+      <relief>RAISED</relief>
+      <bd>3</bd>
+      <button>
+        <font>("Helvetica",20)</font>
+        <width>3</width>
+        <halpin>"x-plus"</halpin>
+        <text>"X+"</text>
+      </button>
+      <button>
+        <font>("Helvetica",20)</font>
+        <width>3</width>
+        <halpin>"x-minus"</halpin>
+        <text>"X-"</text>
+      </button>
+      </hbox>
+
+      <!-- the Y jog buttons -->
+      <hbox>
+      <relief>RAISED</relief>
+      <bd>3</bd>
+      <button>
+        <font>("Helvetica",20)</font>
+        <width>3</width>
+        <halpin>"y-plus"</halpin>
+        <text>"Y+"</text>
+      </button>
+      <button>
+        <font>("Helvetica",20)</font>
+        <width>3</width>
+        <halpin>"y-minus"</halpin>
+        <text>"Y-"</text>
+      </button>
+      </hbox>
+
+      <!-- the Z jog buttons -->
+      <hbox>
+      <relief>RAISED</relief>
+      <bd>3</bd>
+      <button>
+        <font>("Helvetica",20)</font>
+        <width>3</width>
+        <halpin>"z-plus"</halpin>
+        <text>"Z+"</text>
+      </button>
+      <button>
+        <font>("Helvetica",20)</font>
+        <width>3</width>
+        <halpin>"z-minus"</halpin>
+        <text>"Z-"</text>
+      </button>
+      </hbox>
+
+      <!-- the jog speed slider -->
+      <vbox>
+      <relief>RAISED</relief>
+      <bd>3</bd>
+      <label>
+        <text>"Jog Speed"</text>
+        <font>("Helvetica",16)</font>
+      </label>
+      <scale>
+        <font>("Helvetica",14)</font>
+        <halpin>"jog-speed"</halpin>
+        <resolution>10</resolution>
+        <orient>HORIZONTAL</orient>
+        <min_>0</min_>
+        <max_>300</max_>
+      </scale>
+      </vbox>
+  </labelframe>
+  
+	
+    <labelframe text="Module Detected: ">
+	
+	<!-- Tools -->
+	<hbox>
+		<led>
+			<halpin>"tool-detected"</halpin>
+			<size>15</size>
+			<on_color>"green"</on_color>
+			<off_color>"red"</off_color>
+		</led>
+		<label>
+			<text>" Proxxon"</text>
+			<halpin>"disable-p-tool"</halpin>
+			<disable_pin>True</disable_pin>.
+		</label>
+		<label>
+			<text>" Manual"</text>
+			<halpin>"disable-m-tool"</halpin>
+			<disable_pin>True</disable_pin>.
+		</label>
+		<label>
+			<text>" No Tool"</text>
+			<halpin>"disable-tool"</halpin>
+			<disable_pin>True</disable_pin>.
+		</label>
+	</hbox>
+		
+	<!-- LUB -->
+    <hbox>
+		<led>
+			<halpin>"lub-detected"</halpin>
+			<size>15</size>
+			<on_color>"green"</on_color>
+			<off_color>"red"</off_color>
+		</led>
+		<label>
+			<text>" Lubricante"</text>
+		</label>
+	</hbox>
+	
+	<!-- VACUUM -->
+	<hbox>
+		<led>
+			<halpin>"vacuum-detected"</halpin>
+			<size>15</size>
+			<on_color>"green"</on_color>
+			<off_color>"red"</off_color>
+		</led>
+		<label>
+			<text>" Vacuum"</text>
+		</label>
+	</hbox>
+	
+	
+    </labelframe>
+</pyvcp>

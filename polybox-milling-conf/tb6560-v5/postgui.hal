@@ -1,0 +1,45 @@
+loadrt or2 count=2
+loadrt mux4 count=1
+loadrt sum2 count=3
+loadrt mult2 count=1
+
+addf or2.0 servo-thread
+addf or2.1 servo-thread
+addf mux4.0 servo-thread
+addf sum2.0 servo-thread
+addf sum2.1 servo-thread
+addf sum2.2 servo-thread
+addf mult2.0 servo-thread
+
+# set the jog speed for the joypad again use numbers that make sense for your machine
+#setp mux4.0.in0 0 # this one must be 0 to prevent motion unless a button is pressed
+#setp mux4.0.in1 25
+#setp mux4.0.in2 100
+#setp mux4.0.in3 200
+
+#handle Z axis with 2 button. Release button start at -1 and end at 1 when fully-pressed...
+setp sum2.0.in0  1.0
+setp sum2.1.in0 1.0
+
+net z-correct sum2.0.in1 input.0.abs-z-position
+net zr-correct sum2.1.in1 input.0.abs-rz-position
+
+#mult 1 axis by -1 to get neg value 
+setp mult2.0.in0 -1.0
+net z-neg-correct mult2.0.in1 sum2.0.out
+net sum-z-1 sum2.2.in0 mult2.0.out
+net sum-z-2 sum2.2.in1 sum2.1.out
+
+# the following does the magic of setting the jog speeds
+#net remote-speed-slow or2.0.in0 input.0.btn-a
+#net remote-speed-medium or2.1.in0 input.0.btn-b
+#net remote-speed-fast or2.0.in1 or2.1.in1 input.0.btn-x
+
+#net joy-speed-1 mux4.0.sel0 <= or2.0.out
+#net joy-speed-2 mux4.0.sel1 <= or2.1.out
+#net joy-speed-final halui.jog-speed <= mux4.0.out
+
+
+net joy-x-jog halui.jog.0.analog <= input.0.abs-x-position 
+net joy-y-jog halui.jog.1.analog <= input.0.abs-y-position 
+net joy-z-jog halui.jog.2.analog <= sum2.2.out

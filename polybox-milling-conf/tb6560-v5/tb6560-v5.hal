@@ -76,3 +76,6 @@ net Xen => parport.0.pin-14-out
 ###
 
 # net Xlimits parport.0.pin-13-in => axis.0.neg-lim-sw-in axis.0.pos-lim-sw-in
+
+#Auto-Add by JoypadOverlay software. Remote joypad control
+loadusr -W hal_input -KRAL X-Box

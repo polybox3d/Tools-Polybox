@@ -7,9 +7,6 @@ loadrt trivkins
 loadrt stepgen step_type=0,0,0
 loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES
 
-#Auto-Add by JoypadOverlay software. Remote joypad control
-loadusr -W hal_input -KRAL X-Box
-
 # stepper module, three step generators, all three using step/dir
 
 # hook functions to base thread (high speed thread for step generation)
