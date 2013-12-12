@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Comment=Store, save and share datas.
+Exec=dolphin %i -caption "%c" /home/poly/plbx-dropbox/
+Icon=/home/poly/Tools-Polybox/Desktop/icon/dropbox.png
+Name=Polybox-Dropbox
+Type=Application
+MimeType=inode/directory;

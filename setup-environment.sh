@@ -26,17 +26,20 @@ echoC "$BLU" "=====>Create and setup Desktop Icon ."
 resetC
 #cp ./Desktop/* ~/Dekstop/
 #cp ./Desktop/* ~/Bureau/
+cd Desktop
 xdg-desktop-icon install dolphin.dekstop
 xdg-desktop-icon install konsole.dekstop
 xdg-desktop-icon install firefox.dekstop
 xdg-desktop-icon install polybox-cnc.dekstop
+xdg-desktop-icon install Desktop/plbx-dropbox.desktop
 
 #change default browser
 xdg-settings set default-web-browser firefox.desktop
 
 #add menu entries for KMenu
-./Desktop/setup-menu.sh
+./setup-menu.sh
 
+cd ..
 #====Plasma
 echoC "$BLU" "=====>Create and configure Plasma (widget,panel and theme)."
 resetC
