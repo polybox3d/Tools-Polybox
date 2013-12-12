@@ -1,0 +1,17 @@
+[Desktop Entry]
+Comment=
+Exec=~/Tools-Polybox/Desktop/cnc-desktop-launcher.sh ~/linuxcnc/configs/tb6560-v5/tb6560-v5-gscreen.ini
+GenericName=CNC-gscreen
+Icon=/home/poly/linuxcnc/linuxcncicon.png
+MimeType=
+Name=CNC-gscreen
+Name[fr]=CNC-gscreen
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
