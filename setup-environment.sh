@@ -20,10 +20,16 @@ sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/conte
 
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
-cp ./Desktop/* ~/Dekstop/
-cp ./Desktop/* ~/Bureau/
+#cp ./Desktop/* ~/Dekstop/
+#cp ./Desktop/* ~/Bureau/
+xdg-desktop-icon install dolphin.dekstop
+xdg-desktop-icon install konsole.dekstop
+xdg-desktop-icon install firefox.dekstop
+xdg-desktop-icon install polybox-cnc.dekstop
 resetC
 
+#====DropBox/sharedFolders
+./install-samba
 
 #====Plasma
 echoC "$BLU" "=====>Create and configure Plasma (widget,panel and theme)."

@@ -1,0 +1,14 @@
+
+This folder is shared by Samba Server on local network, under WORKGROUP name.
+
+You can use it like you want, to store stl or share datas. 
+No more need USB, burn CD or email !
+
+You can acces to this folder on client computer (Windows, Max, Unix, Posix) under :
+\\POLYBOX\plbx-dropbox
+
+
+
+-> To enable this function, you have to connect your Polybox to your local area network (or internet).
+
+
