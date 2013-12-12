@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=X-POLY;
+Comment=Thingiverse
+Encoding=UTF-8
+Exec=xdg-open http://www.thingiverse.com/
+GenericName=Thingiverse
+Icon=/home/poly/Tools-Polybox/Desktop/icon/thingiverse.png
+MimeType=
+Name=Thingiverse
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

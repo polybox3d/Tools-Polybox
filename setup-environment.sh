@@ -18,18 +18,24 @@ sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/conte
 ./setup-virtu-serial-deamon.sh
 ./setup-polyplexer-deamon.sh
 
+#====DropBox/sharedFolders
+./install-samba
+
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
+resetC
 #cp ./Desktop/* ~/Dekstop/
 #cp ./Desktop/* ~/Bureau/
 xdg-desktop-icon install dolphin.dekstop
 xdg-desktop-icon install konsole.dekstop
 xdg-desktop-icon install firefox.dekstop
 xdg-desktop-icon install polybox-cnc.dekstop
-resetC
 
-#====DropBox/sharedFolders
-./install-samba
+#change default browser
+xdg-settings set default-web-browser firefox.desktop
+
+#add menu entries for KMenu
+./Desktop/setup-menu.sh
 
 #====Plasma
 echoC "$BLU" "=====>Create and configure Plasma (widget,panel and theme)."

@@ -1,7 +1,8 @@
 [Desktop Entry]
 Comment=
-Exec=/home/poly/linuxcnc/scripts/linuxcnc '/home/poly/linuxcnc/configs/tb6560-v5/tb6560-v5.ini'
+Exec=~/Tools-Polybox/Desktop/cnc-desktop-launcher.sh ~/linuxcnc/configs/tb6560-v5/tb6560-v5.ini
 Icon=/home/poly/linuxcnc/linuxcncicon.png
 Name[en_US]=Polybox-CNC
 Name=Polybox-CNC
 Type=Application
+Terminal=false

@@ -1,0 +1,22 @@
+[Desktop Entry]
+Categories=X-POLY;
+Comment[en_US]=Start PolyBox software
+Comment=Start PolyBox software
+Encoding=UTF-8
+Exec=/home/poly/polybox/src/polybox
+GenericName[en_US]=
+GenericName=
+Icon=polybox-polybox-menu
+MimeType=
+Name=PolyBox
+Path=/home/poly/polybox/src
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

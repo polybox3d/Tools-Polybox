@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=X-POLY;
+Comment=Shapeways
+Encoding=UTF-8
+Exec=xdg-open http://www.shapeways.com/
+GenericName=Shapeways
+Icon=/home/poly/Tools-Polybox/Desktop/icon/shapewayss.png 
+MimeType=
+Name=Shapeways
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

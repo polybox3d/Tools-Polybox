@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Start LinuxCNC
+Exec=/home/poly/linuxcnc/scripts/linuxcnc ''
+Icon=/home/poly/linuxcnc/linuxcncicon.png
+Name[en_US]=LinuxCNC
+Name=LinuxCNC
+Type=Application

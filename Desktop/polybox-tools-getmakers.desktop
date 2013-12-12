@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=X-POLY;
+Comment=GetMakers
+Encoding=UTF-8
+Exec=xdg-open http://www.getmakers.com/
+GenericName=GetMakers
+Icon=/home/poly/Tools-Polybox/Desktop/icon/getmakers.png
+MimeType=
+Name=GetMakers
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

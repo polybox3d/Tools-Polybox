@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=X-POLY;
+Comment=Sculpteo
+Encoding=UTF-8
+Exec=xdg-open http://www.sculpteo.com/
+GenericName=Sculpteo
+Icon=/home/poly/Tools-Polybox/Desktop/icon/sculpteo.png
+MimeType=
+Name=Sculpteo
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-DocPath=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
