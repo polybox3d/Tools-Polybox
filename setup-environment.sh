@@ -27,11 +27,11 @@ resetC
 #cp ./Desktop/* ~/Dekstop/
 #cp ./Desktop/* ~/Bureau/
 cd Desktop
-xdg-desktop-icon install dolphin.desktop
-xdg-desktop-icon install konsole.desktop
-xdg-desktop-icon install firefox.desktop
-xdg-desktop-icon install polybox-cnc.desktop
-xdg-desktop-icon install Desktop/plbx-dropbox.desktop
+xdg-desktop-icon install --novendor dolphin.desktop
+xdg-desktop-icon install --novendor konsole.desktop
+xdg-desktop-icon install --novendor firefox.desktop
+xdg-desktop-icon install --novendor polybox-cnc.desktop
+xdg-desktop-icon install --novendor Desktop/plbx-dropbox.desktop
 
 #change default browser
 xdg-settings set default-web-browser firefox.desktop
