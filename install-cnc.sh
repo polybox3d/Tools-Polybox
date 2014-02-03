@@ -20,7 +20,7 @@ resetC
 
 sudo apt-get -y install python-gtk2 libglade2-dev python-glade2 python-gnome2
 print_check_error
-sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev zlib1g-dev libtk-img
+sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev zlib1g-dev libtk-img libmodbus-dev
 print_check_error
 
 
@@ -51,7 +51,7 @@ print_check_error
 sudo apt-get -y --force-yes install xenomai-runtime libxenomai-dev
 print_check_error
 # Install the xenomai-patched kernel
-sudo apt-get -y install linux-image-3.5.7-xenomai-2.6.2.1
+sudo apt-get -y --force-yes install linux-image-3.5.7-xenomai-2.6.2.1
 print_check_error
 
 #########################################################
