@@ -20,7 +20,7 @@ resetC
 
 sudo apt-get -y install python-gtk2 libglade2-dev python-glade2 python-gnome2
 print_check_error
-sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev libtk-dev zlib1g-dev libtk-img
+sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev zlib1g-dev libtk-img
 print_check_error
 
 
@@ -45,10 +45,10 @@ print_check_error
 # update the package list
 sudo apt-get update
 # Install the package containing the signing keys; answer 'y' to install despite missing keys
-sudo apt-get -y install zultron-keyring
+sudo apt-get -y --force-yes install zultron-keyring
 print_check_error
 # Install the xenomai run-time tools and headers (for building LCNC)
-sudo apt-get -y install xenomai-runtime libxenomai-dev
+sudo apt-get -y --force-yes install xenomai-runtime libxenomai-dev
 print_check_error
 # Install the xenomai-patched kernel
 sudo apt-get -y install linux-image-3.5.7-xenomai-2.6.2.1

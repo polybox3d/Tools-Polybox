@@ -56,6 +56,10 @@ sudo easy_install py-notify
 sudo apt-get -y install libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libpulse-dev
 print_check_error
 
+echoC "$BLU" "*Mono: "
+sudo apt-get -y install mono-runtime libmono-system-windows-forms4.0-cil libmono-system-web4.0-cil libmono-system-design4.0-cil libmono-system-numerics4.0-cil
+print_check_error
+
 echoC "$BLU" "*Qt: "
 resetC
 #Qt5.x
