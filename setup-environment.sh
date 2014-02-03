@@ -66,6 +66,16 @@ sudo chmod +x /etc/init.d/git-update
 echoC "$BLU" "===>Update RC file"
 sudo update-rc.d git-update defaults
 
+#====Script sys-update
+echoC "$BLU" "=====>Setup Auto-sys-update script."
+resetC
+sudo cp sys-update.sh /etc/init.d/sys-update
+#give right
+sudo chmod +x /etc/init.d/sys-update
+#update rc file for auto-start at boot
+echoC "$BLU" "===>Update RC file"
+sudo update-rc.d sys-update defaults
+
 
 #==== Screen+touchscreen
 echoC "$BLU" "=====>Configure Xorg and TouchScreen."
