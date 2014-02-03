@@ -27,7 +27,7 @@ echoC "$BLU" "===>Install basics paquages..."
 resetC
 
 sudo apt-get update
-sudo apt-get -y install git subversion emacs geany vim gcc g++ php5-dev python cmake git-core git-gui dpkg-dev python python-serial python-wxgtk2.8 python-tk git-core
+sudo apt-get -y install git subversion emacs geany vim gcc g++ php5-dev python cmake git-core git-gui dpkg-dev python python-tk git-core python-serial python-wxgtk2.8 python-pyglet python-tornado python-setuptools python-libxml2 python-gobject avahi-daemon libavahi-compat-libdnssd1 python-pip
 print_check_error
 echoC "$BLU" "*Tools: "
 resetC
@@ -67,6 +67,8 @@ sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa
 print_check_error
 
 sudo apt-get -y update
+print_check_error
+sudo apt-get -y upgrade
 print_check_error
 
 sudo apt-get -y install qtdeclarative5-dev qtmobility-dev
