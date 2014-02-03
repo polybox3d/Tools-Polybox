@@ -27,10 +27,10 @@ resetC
 #cp ./Desktop/* ~/Dekstop/
 #cp ./Desktop/* ~/Bureau/
 cd Desktop
-xdg-desktop-icon install dolphin.dekstop
-xdg-desktop-icon install konsole.dekstop
-xdg-desktop-icon install firefox.dekstop
-xdg-desktop-icon install polybox-cnc.dekstop
+xdg-desktop-icon install dolphin.desktop
+xdg-desktop-icon install konsole.desktop
+xdg-desktop-icon install firefox.desktop
+xdg-desktop-icon install polybox-cnc.desktop
 xdg-desktop-icon install Desktop/plbx-dropbox.desktop
 
 #change default browser
