@@ -51,7 +51,7 @@ print_check_error
 sudo apt-get -y --force-yes install xenomai-runtime libxenomai-dev
 print_check_error
 # Install the xenomai-patched kernel
-sudo apt-get -y install linux-image-3.5.7-xenomai-2.6.2.1
+sudo apt-get -y --force-yes install linux-image-3.5.7-xenomai-2.6.2.1
 print_check_error
 
 #########################################################
