@@ -9,6 +9,9 @@ MY_DIR=`dirname $0`
 source $MY_DIR/color.sh
 source $MY_DIR/utils.sh
 
+PRINTRUNDIR="$HOME/Printrun"
+SKEINFORGEDIR="$PRINTRUNDIR/skeinforge"
+
 echoC "$BLU" "*******Starting Printer installation Script.*******"
 echo "This script will install prinetr software."
 
@@ -28,6 +31,26 @@ cd RepetierHost
 sh configureFirst.sh
 
 sudo usermod -a -G dialout $(whoami)
+
+
+echoC "$BLU" "===>Download Printer Softwer (printrun)..." 
+resetC
+
+
+cd $HOME
+echo "Removing existing Printrun directory..."
+rm -rf $PRINTRUNDIR
+echo "Cloning Printrun..."
+git clone https://github.com/kliment/Printrun.git
+echo "Grabbing skeinforge..."
+wget -P /tmp http://fabmetheus.crsndoo.com/files/41_reprap_python_beanshell.zip
+echo "Unzipping skeinforge into Printrun directory..."
+unzip -d $SKEINFORGEDIR /tmp/41_reprap_python_beanshell.zip
+echo "Symlinking skeinforge inside Printrun directory..."
+ln -s $SKEINFORGEDIR/* $PRINTRUNDIR/
+echo "Cleaning up temporary installation files..."
+rm -rf /tmp/41_reprap_python_beanshell.zip
+
 
 
 echoC "$BLU" "===>Download Printer Firmware..." 
