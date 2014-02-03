@@ -1,4 +1,4 @@
-HOME="/home/poly"
+HOME="/home/"`whoami`
 
 #===Env.===
 . /home/poly/linuxcnc/scripts/rip-environment
