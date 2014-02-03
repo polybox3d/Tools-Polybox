@@ -27,7 +27,7 @@ while [[ "$current_state" != "Done" ]]; do
 	echo starting > "$state_file"
     fi
     echoC "$GREEN" "Etape du script :  $current_state "
-    
+    resetC
     
     case $current_state in
 	starting )	    
@@ -58,8 +58,8 @@ while [[ "$current_state" != "Done" ]]; do
 	    
 	cnc-2 )
 	    ./install-cnc-2.sh
-	    ./install-joypadoverlay.sh
 	    close_if_error
+	    ./install-joypadoverlay.sh
 	    echo "scan" > $state_file;;
 	scan )
 	    ./install-opencv.sh
