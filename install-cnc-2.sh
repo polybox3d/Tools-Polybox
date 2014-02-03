@@ -11,6 +11,7 @@ else
     exit 0
 fi
 
+resetC
 #===Get and install LinuxCNC===
 cd ~/
 git clone https://github.com/zultron/linuxcnc.git $LINUX_CNC_FOLDER
@@ -52,7 +53,7 @@ sudo sh -c 'echo "LOAD_LP_MODULE=no" > /etc/default/cups'
 sudo update-initramfs -u
 
 #===Copy miling configuration file===
-cp -R polybox-milling-conf cd~/$LINUX_CNC_FOLDER/configs/Polybox-v1
+cp -R polybox-milling-conf ~/$LINUX_CNC_FOLDER/configs/Polybox-v1
 
 #===Start Tests===
 . ../scripts/rip-environment
