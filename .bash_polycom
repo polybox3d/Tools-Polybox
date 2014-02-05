@@ -1,7 +1,7 @@
 HOME="/home/"`whoami`
 
 #===Env.===
-. /home/poly/linuxcnc/scripts/rip-environment
+. $HOME/linuxcnc/scripts/rip-environment
 
 #===Alias===
 
