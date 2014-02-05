@@ -19,7 +19,7 @@ sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/conte
 ./setup-polyplexer-deamon.sh
 
 #====DropBox/sharedFolders
-./install-samba
+./install-samba.sh
 
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
@@ -31,7 +31,7 @@ xdg-desktop-icon install --novendor dolphin.desktop
 xdg-desktop-icon install --novendor konsole.desktop
 xdg-desktop-icon install --novendor firefox.desktop
 xdg-desktop-icon install --novendor polybox-cnc.desktop
-xdg-desktop-icon install --novendor Desktop/plbx-dropbox.desktop
+xdg-desktop-icon install --novendor plbx-dropbox.desktop
 
 #change default browser
 xdg-settings set default-web-browser firefox.desktop
