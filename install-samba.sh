@@ -25,7 +25,7 @@ chmod -R 777 ~/plbx-dropbox
 
 sudo sh -c 'echo "
 [plbx-dropbox]
-   path = /home/poly/plbx-dropbox
+   path = $HOME/plbx-dropbox
    comment = Shared folder for Polybox.
    read only = no
    guest ok = yes

@@ -19,7 +19,7 @@ sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/conte
 ./setup-polyplexer-deamon.sh
 
 #====DropBox/sharedFolders
-./install-samba
+./install-samba.sh
 
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
@@ -27,11 +27,11 @@ resetC
 #cp ./Desktop/* ~/Dekstop/
 #cp ./Desktop/* ~/Bureau/
 cd Desktop
-xdg-desktop-icon install dolphin.dekstop
-xdg-desktop-icon install konsole.dekstop
-xdg-desktop-icon install firefox.dekstop
-xdg-desktop-icon install polybox-cnc.dekstop
-xdg-desktop-icon install Desktop/plbx-dropbox.desktop
+xdg-desktop-icon install --novendor dolphin.desktop
+xdg-desktop-icon install --novendor konsole.desktop
+xdg-desktop-icon install --novendor firefox.desktop
+xdg-desktop-icon install --novendor polybox-cnc.desktop
+xdg-desktop-icon install --novendor plbx-dropbox.desktop
 
 #change default browser
 xdg-settings set default-web-browser firefox.desktop
@@ -65,6 +65,16 @@ sudo chmod +x /etc/init.d/git-update
 #update rc file for auto-start at boot
 echoC "$BLU" "===>Update RC file"
 sudo update-rc.d git-update defaults
+
+#====Script sys-update
+echoC "$BLU" "=====>Setup Auto-sys-update script."
+resetC
+sudo cp sys-update.sh /etc/init.d/sys-update
+#give right
+sudo chmod +x /etc/init.d/sys-update
+#update rc file for auto-start at boot
+echoC "$BLU" "===>Update RC file"
+sudo update-rc.d sys-update defaults
 
 
 #==== Screen+touchscreen

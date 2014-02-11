@@ -1,11 +1,13 @@
-HOME="/home/poly"
+HOME="/home/"`whoami`
 
 #===Env.===
-. /home/poly/linuxcnc/scripts/rip-environment
+. $HOME/linuxcnc/scripts/rip-environment
 
 #===Alias===
 
 alias fabScan="$HOME/FabScan100/qtTest/FabScan100"
 alias qmake5="/usr/lib/i386-linux-gnu/qt5/bin/qmake"
-alias repetierHost="$HOME/RepetierHost/repetierhost"
-alias polybox="$HOME/polybox/src/Polybox"
+alias repetierHost="$HOME/RepetierHost/repetierHost"
+alias polybox="$HOME/polybox/src/polybox"
+alias cambam="mono $HOME/CamBam/CamBam.exe"
+alias pronterface="$HOME/Printrun/pronterface.py"
