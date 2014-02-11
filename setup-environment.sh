@@ -21,6 +21,37 @@ sudo cp ./img/logo_vintage_halfcolor_trunc.png /usr/share/wallpapers/Ariya/conte
 #====DropBox/sharedFolders
 ./install-samba.sh
 
+
+#====Script Git-update
+echoC "$BLU" "=====>Setup Auto-Git-update script."
+resetC
+sudo cp git-update.sh /etc/init.d/git-update
+#give right
+sudo chmod +x /etc/init.d/git-update
+#update rc file for auto-start at boot
+echoC "$BLU" "===>Update RC file"
+sudo update-rc.d git-update defaults
+
+#====Script sys-update
+echoC "$BLU" "=====>Setup Auto-sys-update script."
+resetC
+sudo cp sys-update.sh /etc/init.d/sys-update
+#give right
+sudo chmod +x /etc/init.d/sys-update
+#update rc file for auto-start at boot
+echoC "$BLU" "===>Update RC file"
+sudo update-rc.d sys-update defaults
+
+
+#==== Screen+touchscreen
+echoC "$BLU" "=====>Configure Xorg and TouchScreen."
+resetC
+sudo cp 10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
+sudo cp xorg.conf /etc/X11/xorg.conf
+
+
+
+
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
 resetC
@@ -55,34 +86,6 @@ resetC
 sleep 2
 
 kstart plasma-desktop &
-
-#====Script Git-update
-echoC "$BLU" "=====>Setup Auto-Git-update script."
-resetC
-sudo cp git-update.sh /etc/init.d/git-update
-#give right
-sudo chmod +x /etc/init.d/git-update
-#update rc file for auto-start at boot
-echoC "$BLU" "===>Update RC file"
-sudo update-rc.d git-update defaults
-
-#====Script sys-update
-echoC "$BLU" "=====>Setup Auto-sys-update script."
-resetC
-sudo cp sys-update.sh /etc/init.d/sys-update
-#give right
-sudo chmod +x /etc/init.d/sys-update
-#update rc file for auto-start at boot
-echoC "$BLU" "===>Update RC file"
-sudo update-rc.d sys-update defaults
-
-
-#==== Screen+touchscreen
-echoC "$BLU" "=====>Configure Xorg and TouchScreen."
-resetC
-sudo cp 10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
-sudo cp xorg.conf /etc/X11/xorg.conf
-
 
 
 print_bye
