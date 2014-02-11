@@ -59,7 +59,9 @@ while [[ "$current_state" != "Done" ]]; do
 	cnc-2 )
 	    ./install-cnc-2.sh
 	    close_if_error
-	    ./install-joypadoverlay.sh
+	    ./install-cambam.sh
+	    close_if_error
+#	    ./install-joypadoverlay.sh
 	    echo "scan" > $state_file;;
 	scan )
 	    ./install-opencv.sh
