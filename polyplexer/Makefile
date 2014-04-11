@@ -1,11 +1,11 @@
 TARGET=PolyPlexer
 CC=gcc
 OBJECT= Color.o main.o
-CFLAGS=-W -Wall -O3
+CFLAGS=-W -Wall -g
 VERBOSE=no
 
 ifeq ($(VERBOSE), yes)
-        CFLAGS+= -DVERBOSE
+        CFLAGS+= -DVERBOSE -DCOLOR
 endif
 
 

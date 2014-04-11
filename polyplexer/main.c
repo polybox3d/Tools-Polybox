@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 #include <stropts.h>
 #include <poll.h>
 #include <string.h>
@@ -39,7 +40,7 @@
 
 /*  Debug printf to stderr.   */
 #define eprintf(fmt, ...) \
-            do { if (VERBOSE) fprintf (stderr, fmt, ##__VA_ARGS__) ; } while (0)
+            do { if (VERBOSE) fprintf (stdout, fmt, ##__VA_ARGS__) ; } while (0)
 
 /*  Globals Vars. */
 struct pollfd fds[FD_NUMBER];
@@ -51,11 +52,16 @@ int baudrate = 115200;
 int printer=2, poly=1, serial=0;
 int i;
 
-void abandon(char r[])
+void abandon_c(char r[], int code)
 {
   perror(r);
-  exit(EXIT_FAILURE);
+  exit(code);
 }
+void abandon(char r[])
+{
+  abandon_c(r, EXIT_FAILURE);
+}
+
 
 void clear_stream(int fd_id)
 {
@@ -64,27 +70,64 @@ void clear_stream(int fd_id)
 }
 
 /*  Define a fd as a pty/serial file with a given baudrate.  */
-void set_as_pty(int fd, int baudrate)
+int set_as_pty(int fd, int baudrate)
 {
   /* serial port parameters */
-  struct termios newtio;
-  memset(&newtio, 0, sizeof(newtio));
-  struct termios oldtio;
-  tcgetattr(fd, &oldtio);
+    struct termios toptions;
+    /* memset(&newtio, 0, sizeof(newtio));
+       struct termios oldtio;*/
+    if (tcgetattr(fd, &toptions) < 0) {
+      perror("Open Port PTYt: Couldn't get term attributes");
+      return -1;
+    }
+    //    tcgetattr(fd, &toptions);
 
-  newtio = oldtio;
-  newtio.c_cflag = baudrate | CS8 | CLOCAL | CREAD;
-  newtio.c_iflag = 0;
-  newtio.c_oflag = 0;
-  newtio.c_lflag = 0;
-  newtio.c_cc[VMIN] = 1;
-  newtio.c_cc[VTIME] = 0;
-  tcflush(fd, TCIFLUSH);
+    speed_t brate = baudrate; // let you override switch below if needed
+    switch(baudrate) {
+    case 4800: brate=B4800; break;
+    case 9600: brate=B9600; break;
+#ifdef B14400
+    case 14400: brate=B14400; break;
+#endif
+    case 19200: brate=B19200; break;
+#ifdef B28800
+    case 28800: brate=B28800; break;
+#endif
+    case 38400: brate=B38400; break;
+    case 57600: brate=B57600; break;
+    case 115200: brate=B115200; break;
+    }
+    cfsetispeed(&toptions, brate);
+    cfsetospeed(&toptions, brate);
 
-  cfsetispeed(&newtio, baudrate);
-  cfsetospeed(&newtio, baudrate);
-  tcsetattr(fd, TCSANOW, &newtio);
+    /*    cfsetispeed(&toptions, baudrate);
+    cfsetospeed(&toptions, baudrate);
+    */
+    // 8N1
+    toptions.c_cflag &= ~PARENB;
+    toptions.c_cflag &= ~CSTOPB;
+    toptions.c_cflag &= ~CSIZE;
+    toptions.c_cflag |= CS8;
+    // no flow control
+    toptions.c_cflag &= ~CRTSCTS;
 
+    //toptions.c_cflag &= ~HUPCL; // disable hang-up-on-close to avoid reset
+
+    toptions.c_cflag |= CREAD | CLOCAL; // turn on READ & ignore ctrl lines
+    toptions.c_iflag &= ~(IXON | IXOFF | IXANY); // turn off s/w flow ctrl
+
+    toptions.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); // make raw
+    toptions.c_oflag &= ~OPOST; // make raw
+
+    toptions.c_cc[VMIN] = 0;
+    toptions.c_cc[VTIME] = 0;
+    
+    tcsetattr(fd, TCSANOW, &toptions);
+    if( tcsetattr(fd, TCSAFLUSH, &toptions) < 0) {
+        perror("init_serialport: Couldn't set term attributes");
+        return 4;
+    }
+    return 0;
 }
 
 int read_stream(int fd_id)
@@ -107,9 +150,7 @@ int read_stream(int fd_id)
       else
 	{
 	  strcat( input_buffer[fd_id], tmp_buffer ); /*  We copy the tmp string inside the correct buffer */
-	  char* pos = strchr( tmp_buffer,'\r');
-	  char* pos2 = strchr( tmp_buffer,'\n');
-	  if ( pos != NULL  || pos2 != NULL ) /* end found  */
+	  if ( input_buffer[fd_id][current_size[fd_id]-1] == '\n' || input_buffer[fd_id][current_size[fd_id]-1] == '\r' /*pos != NULL*/  /*|| pos2 != NULL*/ ) /* end found  */
 	    {
 	      return DATA_READY;
 	    }
@@ -128,7 +169,7 @@ int read_stream(int fd_id)
 int init_stream(char* devicename, int device_id)
 {
   eprintf("[%s]\n",devicename);
-  fds[device_id].fd = open(devicename, O_RDWR);
+  fds[device_id].fd = open(devicename, O_RDWR | O_NONBLOCK);
   if ( fds[device_id].fd == -1 || fds[device_id].fd == NULL )
     {
       color_text(RED);
@@ -136,7 +177,13 @@ int init_stream(char* devicename, int device_id)
       color_reset();
       return 1;
     }
-  set_as_pty( fds[device_id].fd, baudrate);
+  if ( set_as_pty( fds[device_id].fd, baudrate) )
+    {
+      color_text(RED);
+      eprintf("ERROR SET SERIAL %s\n", devicename);
+      color_reset();
+      return 1;
+    }
   fds[device_id].events = POLLIN ;
   return 0;
 }
@@ -149,17 +196,17 @@ int init_streams( char* serial_name, char* virtu_poly_name, char* virtu_printer_
   /*  Serial  */
   if( init_stream(serial_name, serial) )
     {
-      abandon("Error: ");
+      abandon_c("Error opening Serial ",8);
     }
   /*  Printer  */
   if(init_stream(virtu_printer_name, printer) )
     {
-      abandon("Error: ");
+      abandon_c("Error opening VirtualPrinter Serial ",9);
     }
   /*  Poly  */
     if( init_stream(virtu_poly_name, poly) )
     {
-      abandon("Error: ");
+      abandon_c("Error opening PolySoftware Serial ",10);
     }
   color_text(GREEN);
   eprintf("===>Ok. Done.\n");
@@ -180,14 +227,13 @@ int main(int argc, char* argv[])
 
   /* INIT. & VARS. */
 
-  int timeout_msecs = 1000;
+  int timeout_msecs = 10;
 
   int ret;
   char serial_name[ARG_SIZE];
   char virtu_printer_name[ARG_SIZE];
   char virtu_poly_name[ARG_SIZE];
   int polyplexer_on = 1;
-  char hellocommand[]="Hello ! I'm PolyPlexer v0.4\n";
   char* pos;
   int data_state=0;
 
@@ -195,7 +241,7 @@ int main(int argc, char* argv[])
   if ( argc < 4 )
     {
       printf("Usage:  %s /serial/device /virtual/poly/pty /virtual/printer/pty\n\n", argv[0]);
-      return EXIT_FAILURE;
+      return 1;
     }
   /* Save device path/name */
   strncpy(serial_name, argv[1], ARG_SIZE);
@@ -206,13 +252,11 @@ int main(int argc, char* argv[])
   /* Open STREAMS device. */
   init_streams(serial_name, virtu_poly_name, virtu_printer_name);
 
-  
   color_text(MAGENTA);
   eprintf("===> Start main loop server\n");
   color_reset();
 
-  /* We say HELLO ! Cause we are nice :p (and because we dont want binary stream FFS ! */
-  //  write( fds[serial].fd, hellocommand, sizeof(hellocommand));
+
   while ( polyplexer_on )
     {
       //      write( fds[serial].fd, "M105\n", 5 );
@@ -231,40 +275,55 @@ int main(int argc, char* argv[])
 		    {
 		      if( i == printer )
 			{
-			  eprintf("[printer]\n");
+			  //eprintf("[printer]\n");
+			  color_text(RED);
+			  write( 1, input_buffer[printer], current_size[printer] );
+			  color_reset();
 			  write( fds[serial].fd, input_buffer[printer], current_size[printer]);
 			  clear_stream(printer);
 			}
 		      else if( i == serial )
 			{
-			  eprintf("[serial]\n");
+			  //			  eprintf("[serial]\n");
 			  pos = strchr( input_buffer[serial], '#'); /*  polybox data ?? */ /* CARE , check if the FULL data contain #, not only the begining... @todo */
 			  if ( pos != NULL )
 			    {
-			      eprintf("=====> To Poly \n");
+			      //  eprintf("=====> To Poly \n");
+			      color_text(GREEN);
+			      write( 1, input_buffer[serial], current_size[serial] );
+			      color_reset();
 			      write( fds[poly].fd, input_buffer[serial], current_size[serial] );
 			    }
 			  else /* rest for printer software == prevent add of of code. Since polybox code are always prefixed with # */ 
 			    {
-			      eprintf("=====> To Printer \n");
+			      //  eprintf("=====> To Printer \n");
+			      color_text(BLUE);
+			      write( 1, input_buffer[serial], current_size[serial] );
+			      color_reset();
 			      write( fds[printer].fd, input_buffer[serial], current_size[serial] );
 			    }
 			  clear_stream(serial);
 			}
 		      else if( i == poly )
 			{
-			  eprintf("[poly]\n");
+			  //			  eprintf("[poly]\n");
+			  color_text(YELLOW);
+			  write( 1, input_buffer[poly], current_size[poly] );
+			  color_reset();
 			  write( fds[serial].fd, input_buffer[poly], current_size[poly] );
 			  clear_stream(poly);
 			}
 		    }
 		  else if( data_state == DATA_WAITING_MORE )
 		    {
-		      eprintf("waiting...%d\n",current_size[i]);
+		      // write( 1, input_buffer[serial], current_size[serial] );
+		      color_text(CYAN);
+		      eprintf("   > Waiting...[%d]\n", current_size[i]);
+		      color_reset();
 		    }
 		  else if ( data_state == DATA_NOTHING_NEW )
 		    {
-		      eprintf("nothin\n");
+		      eprintf("Nothing\n");
 		    }
 		  else
 		    eprintf("erff\n");
@@ -284,9 +343,9 @@ int main(int argc, char* argv[])
 	}
       else if ( ret == 0 )
 	{
-	  color_text(BLUE);
-	  eprintf("Listing...\n");
-	  color_reset();
+	  // color_text(BLUE);
+	  //eprintf("Listing...\n");
+	  //color_reset();
 	}
       
       
