@@ -7,9 +7,12 @@
 # simulate serial port for ICP.
 # 
 ##############################################
- /usr/bin/socat -d -d pty,link=/dev/ttyVIRT0,raw,echo=0 pty,link=/dev/ttyVIRT1,raw,echo=0 &
-
- /usr/bin/socat -d -d pty,link=/dev/ttyVIRT2,raw,echo=0 pty,link=/dev/ttyVIRT3,raw,echo=0 &
 
 
-kill -STOP "$$";
+/usr/bin/socat -d -d pty,link=/dev/ttyDEAMONPOLY,raw,echo=0,mode=0666 pty,link=/dev/ttyPOLY,raw,echo=0,mode=0666 &
+
+while :
+do
+    /usr/bin/socat -d -d pty,link=/dev/ttyDEAMONPRINTER,raw,echo=0,mode=0666 TCP-LISTEN:6843
+done
+#kill -STOP "$$";
