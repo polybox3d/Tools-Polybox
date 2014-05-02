@@ -31,6 +31,8 @@
 #define DATA_CLEARED_OVERFLOW 42
 #define DATA_WAITING_MORE 1
 #define DATA_NOTHING_NEW 2
+#define DATA_CLOSED 3
+#define DATA_ERROR 3
 
 #ifndef VERBOSE 
  #define VERBOSE 0
@@ -162,13 +164,29 @@ int read_stream(int fd_id)
       //	  eprintf("===> %s\n",input_buffer[fd_id]);
       //	  write( fds[rial].fd, input_buffer[printer], nbr_read);
     }
-  return DATA_NOTHING_NEW;
+  else if ( nbr_read == 0 ) // file/socket closed. (EOF) 
+    {
+      return DATA_CLOSED;
+    }
+  else
+    {
+      return DATA_ERROR;
+    }
 }
 
 /*  open a given device and store it inside fds struct */
 int init_stream(char* devicename, int device_id)
 {
+  color_text(GREEN);
   eprintf("[%s]\n",devicename);
+  color_reset();
+  if ( fds[device_id].fd != -1 ) // already open
+    {
+      color_text(MAGENTA);
+      eprintf("=>Already opened.\n");
+      color_reset();
+      return 0;
+    }
   fds[device_id].fd = open(devicename, O_RDWR | O_NONBLOCK);
   if ( fds[device_id].fd == -1 || fds[device_id].fd == NULL )
     {
@@ -248,7 +266,12 @@ int main(int argc, char* argv[])
   strncpy(virtu_poly_name,  argv[2], ARG_SIZE);
   strncpy(virtu_printer_name,  argv[3], ARG_SIZE);
   
-
+  /* Init file descriptor with non-null value */
+  int idx;
+  for ( idx = 0; idx <FD_NUMBER ; ++idx)
+    {
+      fds[idx].fd = -1;
+    }
   /* Open STREAMS device. */
   init_streams(serial_name, virtu_poly_name, virtu_printer_name);
 
@@ -321,9 +344,21 @@ int main(int argc, char* argv[])
 		      eprintf("   > Waiting...[%d]\n", current_size[i]);
 		      color_reset();
 		    }
+		  else if ( data_state == DATA_CLOSED )
+		    {
+		      /*  reset fd descriptor */
+		      fds[i].fd = -1;
+		      /*  Process new init */
+		      sleep(1); // wait a bit for socat to recreate file_descriptor
+		      init_streams(serial_name, virtu_poly_name, virtu_printer_name);
+		    }
 		  else if ( data_state == DATA_NOTHING_NEW )
 		    {
-		      eprintf("Nothing\n");
+		      // eprintf("Nothing\n");
+		    }
+		  else if ( data_state == DATA_ERROR )
+		    {
+		      eprintf("DATA_ERROR\n");
 		    }
 		  else
 		    eprintf("erff\n");
