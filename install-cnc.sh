@@ -18,62 +18,37 @@ echoC "$BLU" "#########################################\n
 ##########################################\n"
 resetC
 
-sudo apt-get -y install python-gtk2 libglade2-dev python-glade2 python-gnome2
+sudo apt-get -y install python-gtk2 libglade2-dev python-glade2 python-gnome2 python-pip python-dev build-essential
 print_check_error
 sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libncurses-dev python-support libgnomeprintui2.2-dev texlive-lang-cyrillic libudev-dev zlib1g-dev libtk-img libmodbus-dev
 print_check_error
-sudo apt-get install libboost-python-dev tk-dev tcl-dev
+sudo apt-get -y install libboost-python-dev tk-dev tcl-dev 
 print_check_error
-
+pip install ino
+print_check_error
 
 echoC "$BLU" "\n
 #########################################################\n
-# Xenomai Kernel Packages\n
-# John Morris (zultron on freenode) has put up package \n
-# repositories containing Xenomai packages for\n
-#  Precise, Squeeze and Lucid. \n
+# RTAI Kernel Packages\n
+# SebKuzminsky & LinuxCNC team \n
+#  For Ubuntu 12.04.4 Precise \n
 #\n
-# Special thanks to him and his team. Really !\n
+# Special thanks to him and his team. Really !\n\n
+# Link: http://wiki.linuxcnc.org/cgi-bin/wiki.pl?LinuxCNC_On_Ubuntu_Precise
+# Date: Jul 2014
 #########################################################\n"
+resetC
 
-# Set CODENAME as appropriate for your environment
-# should be one of 'precise', 'lucid', 'squeeze'; set manually if you get something different
-CODENAME=$(lsb_release -cs); echo $CODENAME
-# Add the repository to /etc/apt/sources.list
-echo "deb http://deb.machinekit.net/$CODENAME $CODENAME main" | sudo tee -a /etc/apt/sources.list 
-print_check_error
-echo "deb-src http://deb.machinekit.net/$CODENAME $CODENAME main" | sudo tee -a /etc/apt/sources.list
-print_check_error
-# update the package list
+#bring the machine up to date with the latest packages in Ubuntu Precise. 
 sudo apt-get update
-# Install the package containing the signing keys; answer 'y' to install despite missing keys
-sudo apt-get -y --force-yes install zultron-keyring
+sudo apt-get dist-upgrade
 print_check_error
-# Install the xenomai run-time tools and headers (for building LCNC)
-sudo apt-get -y --force-yes install xenomai-runtime libxenomai-dev
-print_check_error
-# Install the xenomai-patched kernel
-sudo apt-get -y --force-yes install linux-image-3.5.7-xenomai-2.6.2.1
-print_check_error
-
-#########################################################
-#          RealTek r8168 NIC chipset problems  
-#
-# The r8169 driver is finicky when driving an r8168 NIC,
-# and won't drive it at 1Gb in any case. 
-# The Xenomai patches break it entirely.
-#########################################################
-
-r8169=`lspci | grep 8168 | wc -l`
-
-# does the computer need this driver ??
-if [ "$r8169" != "0" ]; then
-    sudo apt-get -y install kmod-r8168-modules-3.5.7-xenomai-2.6.2.1
-    sudo update-initramfs -u -k 3.5.7-xenomai-2.6.2.1
-    print_check_error
-fi
-#===Add right===
-sudo adduser "$USER" xenomai
+#Create a file called /etc/apt/sources.list.d/linuxcnc.list, containing the line: deb http://linuxcnc.org precise base
+sudo sh -c 'echo "deb http://linuxcnc.org precise base" >> /etc/apt/sources.list.d/linuxcnc.list'
+#Add the LinuxCNC Archive Signing Key to your apt keyring
+sudo apt-key adv --keyserver hkp://keys.gnupg.net --recv-key 8f374fef
+sudo apt-get update
+#REBOOT
 sudo adduser "$USER" kmem
     
 print_bye

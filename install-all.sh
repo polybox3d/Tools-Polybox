@@ -55,9 +55,19 @@ while [[ "$current_state" != "Done" ]]; do
 	    echoC "$BlU" "5s..."
 	    sleep 5
 	    sudo shutdown -r now;;
-	    
 	cnc-2 )
 	    ./install-cnc-2.sh
+	    close_if_error
+	    echo "cnc-3" > $state_file;;
+	    echo "You need to restart this script after the reboot to end the installation."
+	    resetC
+	    echoC "$BlU" "Restart in 10s..."
+	    sleep 5
+	    echoC "$BlU" "5s..."
+	    sleep 5
+	    sudo shutdown -r now;;
+	cnc-3 )
+	    ./install-cnc-3.sh
 	    close_if_error
 	    ./install-cambam.sh
 	    close_if_error
