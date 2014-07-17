@@ -24,7 +24,7 @@ sudo apt-get -y install libpth-dev tcl8.5-dev tk8.5-dev bwidget libxaw7-dev libn
 print_check_error
 sudo apt-get -y install libboost-python-dev tk-dev tcl-dev 
 print_check_error
-pip install ino
+sudo pip install ino
 print_check_error
 
 echoC "$BLU" "\n

@@ -38,6 +38,8 @@ while [[ "$current_state" != "Done" ]]; do
 		resetC
 		exit 0
 	    fi
+	    #setup APT variable. Force-yes and -yes
+	    sudo sh -c 'echo "APT::Get::Assume-Yes "true";\nAPT::Get::force-yes "true";" >> /etc/apt/apt.conf.d/90forceyes'
 	    echo "basic" > $state_file;;
 	basic )
 	    ./install-basic-all.sh
@@ -46,24 +48,24 @@ while [[ "$current_state" != "Done" ]]; do
 	cnc-1 )
 	    ./install-cnc.sh
 	    close_if_error
-	    echoC "$ROSE" "~~~~~~~~~~>I'm going to restart your computer"
-	    echo "cnc-2" > $state_file
-	    echo "You need to restart this script after the reboot to end the installation."
+	    echoC "$ROSE" "~~~~~~~~~~>I'm going to restart your computer";
+	    echo "cnc-2" > $state_file;
+	    echo "You need to restart this script after the reboot to end the installation.";
 	    resetC
-	    echoC "$BlU" "Restart in 10s..."
+	    echoC "$BlU" "Restart in 10s...";
 	    sleep 5
-	    echoC "$BlU" "5s..."
+	    echoC "$BlU" "5s...";
 	    sleep 5
 	    sudo shutdown -r now;;
 	cnc-2 )
 	    ./install-cnc-2.sh
 	    close_if_error
-	    echo "cnc-3" > $state_file;;
-	    echo "You need to restart this script after the reboot to end the installation."
+	    echo "cnc-3" > $state_file;
+	    echo "You need to restart this script after the reboot to end the installation.";
 	    resetC
-	    echoC "$BlU" "Restart in 10s..."
+	    echoC "$BlU" "Restart in 10s...";
 	    sleep 5
-	    echoC "$BlU" "5s..."
+	    echoC "$BlU" "5s...";
 	    sleep 5
 	    sudo shutdown -r now;;
 	cnc-3 )
@@ -90,6 +92,7 @@ while [[ "$current_state" != "Done" ]]; do
 	setup-env )
 	    ./setup-environment.sh
 	    close_if_error
+	    sudo rm /etc/apt/apt.conf.d/90forceyes
 	    echo "Done" > $state_file;;
 	Done )
 	    echo "Nothing to do.";;

@@ -29,12 +29,15 @@ containing one of these lines (depending on which version of linuxcnc you want):
     deb http://buildbot.linuxcnc.org precise v2.5_branch-rt \n\n
 The current lastest stable version is 2.5. (Jul 2014)\n
 ##########################################\n"
+resetC
 
 sudo sh -c 'echo "deb http://buildbot.linuxcnc.org precise v2.5_branch-rt" >> /etc/apt/sources.list.d/linuxcnc-buildbot.list'
 
 sudo apt-get -y update
-sudo apt-get -y install linuxcnc
+sudo apt-get -y --force-yesinstall linuxcnc
 print_check_error
 
 #===Copy miling configuration file===
+mkdir $LINUX_CNC_FOLDER
+mkdir $LINUX_CNC_FOLDER/configs/
 cp -R polybox-milling-conf $LINUX_CNC_FOLDER/configs/Polybox-v1
