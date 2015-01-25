@@ -34,10 +34,10 @@ resetC
 sudo sh -c 'echo "deb http://buildbot.linuxcnc.org precise v2.5_branch-rt" >> /etc/apt/sources.list.d/linuxcnc-buildbot.list'
 
 sudo apt-get -y update
-sudo apt-get -y --force-yesinstall linuxcnc
+sudo apt-get -y --force-yes install linuxcnc
 print_check_error
 
 #===Copy miling configuration file===
 mkdir $LINUX_CNC_FOLDER
 mkdir $LINUX_CNC_FOLDER/configs/
-cp -R ../../polybox-milling-conf $LINUX_CNC_FOLDER/configs/Polybox-v1
+#cp -R ../../polybox-milling-conf $LINUX_CNC_FOLDER/configs/Polybox-v1

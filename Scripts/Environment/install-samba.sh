@@ -20,7 +20,7 @@ resetC
 sudo apt-get -y install samba
 print_check_error
 
-cp -R ../../plbx-dropbox/ ~/
+cp -R $MY_DIR/../../plbx-dropbox/ ~/
 chmod -R 777 ~/plbx-dropbox
 
 sudo sh -c 'echo "
