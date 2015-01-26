@@ -59,8 +59,10 @@ cd $MY_DIR/../../Desktop
 xdg-desktop-icon install --novendor dolphin.desktop
 xdg-desktop-icon install --novendor konsole.desktop
 xdg-desktop-icon install --novendor firefox.desktop
+xdg-desktop-icon install --novendor polybox.desktop
 xdg-desktop-icon install --novendor polybox-cnc.desktop
 xdg-desktop-icon install --novendor plbx-dropbox.desktop
+
 
 #change default browser
 xdg-settings set default-web-browser firefox.desktop
