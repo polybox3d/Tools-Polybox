@@ -3,16 +3,20 @@ Tools-Polybox
 
 This repository contains some scripts usefull
 
-If you start with a fresh 12.04 Ubuntu, just start the main script :
+If you start with a fresh 12.04 Ubuntu, just start the main script by calling 'make':
 
-./install-all.sh
+make install
 
 
-This script will start each installation and setup script 1 by 1. YOu mostly can watch, cause you need to do nothing.
+The makefile will start all the install procedure.
+This main script is under ./Scripts/isntall-all.sh. It will start each installation and setup script 1 by 1.
+The script will ask you some confirmation sometime.
 
-This script will restart your computer. 
-YOU need to RESTART this main script after each reboot, till the script end.
-It's very important. If you dont restart the script, no magic will happends and you will miss some important part.
+During the setup, your computer will restart. Don't be afraid.
+After each reboot, you have to call 'make install' again. Nothing more. Just call it again. Everything will continue.
+We cannot do a script withotu restart since we are patching the kernel with RealTime component (RTAI).
+
+It's very important. If you don't restart the script, no magic will happends and you will miss some important part.
 
 
 Francais
@@ -25,7 +29,7 @@ Progrès
 Le dépôt est actuellement entierement fonctionnel. Il vous permettra d'installer tout l'environement nécessaire à l'utilisation de la Polybox. 
 Ces scripts peuvent nécessiter quelques modifications au fil du temps, afin de les maintenir utilisable (dépendances rompus, paquets manquants, nouvelles technologies, obsolécence etc...)
 
-Dernière modification de la documentation : 10 février 2014.
+Dernière modification de la documentation : 1 Septembre 2014.
 
 Plateforme
 --------------
@@ -52,8 +56,8 @@ La première étape consiste a récuperer un premier paquet essentiel à la réc
   1. Ouvrer un Terminal (Console). Pour cela, plusieurs solutions :
     * Alt+F2 > taper "terminal" puis entrer pour selectionner l'application
     * Menu K > Applications > Système > Terminal
-  2. Une fois la console ouverte, recuperer le paquet "Git"
-    * sudo apt-get install git
+  2. Une fois la console ouverte, recuperer le paquet "Git" et "Make"
+    * sudo apt-get install git make
     * Entrer votre mot de passe puis valider
   4. Enfin, vous êtes pret à recuperer le dépôt, donc les scripts. Dans le terminal :
 ~~~
@@ -94,9 +98,9 @@ Placer vous dans le bon dossier :
    cd ~/Tools-Polybox
 ~~~
   
-Puis, lancer le script d'installation principal :
+Puis, lancer le script d'installation principal via le Makefile :
 ~~~
-  ./install-all.sh
+  make install
 ~~~
 
 Il vous sera alors demander de valider le script par deux fois à son lancement, puis de fournir le mot de passe root.
