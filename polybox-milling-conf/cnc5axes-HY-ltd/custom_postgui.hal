@@ -1,0 +1,4 @@
+# Inclure vos commandes HAL personnalisées ici
+# Les commandes contenues dans ce fichier seront lancées après quel'interface graphique AXIS (PyVCP inclus) aura démarré.
+
+sets spindle-at-speed true

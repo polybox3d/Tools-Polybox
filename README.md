@@ -60,6 +60,28 @@ La première étape consiste a récuperer un premier paquet essentiel à la réc
       git clone https://github.com/skapin/Tools-Polybox.git 
 ~~~
 
+Note : Configuration des carte DB25 "chinoises" :
+Commande : 
+
+~~~
+    lspci -v
+    cat /proc/ioports | grep parport
+~~~
+
+Fichier à editer : 
+
+~~~
+    sudo emacs /etc/modprobe.d/partport_pc.conf
+~~~
+~~~
+    alias parport_lowlevel parport_pc
+    options parport_pc io=0x378,0xdcf8
+~~~
+
+Supprimer LP :
+~~~
+    rmmod lp
+~~~
 
 Installation
 --------------

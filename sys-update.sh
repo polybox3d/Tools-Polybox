@@ -12,7 +12,7 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
 do_start () {
-    apt-get update && apt-get -y upgrade
+    apt-get update && apt-get -y --force-yes upgrade
     date +"%d-%m-%y" > /home/poly/lastSystUpgrade
 }
 
