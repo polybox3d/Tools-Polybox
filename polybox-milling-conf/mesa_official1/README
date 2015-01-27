@@ -1,0 +1,146 @@
+Généré par PNCconf le Thu Oct  9 11:51:11 2014
+
+mesa_official1 configurer LinuxCNC comme:
+
+a metric XYZ type de CNC
+
+AXIS sera utilisé en façade de l'affichage
+
+Mesa hardware I/O card - board 0 is designated as
+5i25
+with 34 I/O pins and firmware is: 7i76x1
+
+** Mesa 5i25 -> Board # 0  connecteur  3 **
+
+connector    board     num   component    signal        
+number    position           type        name
+
+P3-1   0   (0 Géné step-A)  x-stepgen-step  
+
+P3-3   1   (0 Géné dir-B)  x-stepgen-dir  
+
+P3-5   2   (1 Géné step-A)  y-stepgen-step  
+
+P3-7   3   (1 Géné dir-B)  y-stepgen-dir  
+
+P3-9   4   (2 Géné step-A)  z-stepgen-step  
+
+P3-11   5   (2 Géné dir-B)  z-stepgen-dir  
+
+P3-13   6   (3 Géné step-A)  unused-stepgen  
+
+P3-15   7   (3 Géné dir-B)  unused-stepgen  
+
+P3-17   8   (4 Géné step-A)  unused-stepgen  
+
+P3-19   9   (4 Géné dir-B)  unused-stepgen  
+
+P3-21   10   (10 Entrée GPIO)  unused-input  
+
+P3-23   11   (11 Entrée GPIO)  unused-input  
+
+P3-25   12   (12 Entrée GPIO)  unused-input  
+
+P3-27   13   (13 Entrée GPIO)  unused-input  
+
+P3-29   14   (14 Entrée GPIO)  unused-input  
+
+P3-31   15   (15 Entrée GPIO)  unused-input  
+
+P3-33   16   (16 Sortie GPIO)  machine-is-enabled  
+
+P3-35   17   (0 Inutilisé)  unused-unused  
+
+P3-37   18   (0 Inutilisé)  unused-unused  
+
+P3-39   19   (0 Inutilisé)  unused-unused  
+
+P3-41   20   (0 Inutilisé)  unused-unused  
+
+P3-43   21   (0 Inutilisé)  unused-unused  
+
+P3-45   22   (0 Inutilisé)  unused-unused  
+
+P3-47   23   (0 Inutilisé)  unused-unused  
+
+** Mesa 5i25 -> Board # 0  connecteur  2 **
+
+connector    board     num   component    signal        
+number    position           type        name
+
+P2-1   0   (24 Entrée GPIO)  unused-input  
+
+P2-3   1   (25 Entrée GPIO)  unused-input  
+
+P2-5   2   (26 Entrée GPIO)  unused-input  
+
+P2-7   3   (27 Entrée GPIO)  unused-input  
+
+P2-9   4   (28 Entrée GPIO)  unused-input  
+
+P2-11   5   (29 Entrée GPIO)  unused-input  
+
+P2-13   6   (30 Entrée GPIO)  unused-input  
+
+P2-15   7   (31 Entrée GPIO)  unused-input  
+
+P2-17   8   (32 Entrée GPIO)  unused-input  
+
+P2-19   9   (33 Entrée GPIO)  unused-input  
+
+P2-21   10   (34 Entrée GPIO)  unused-input  
+
+P2-23   11   (35 Entrée GPIO)  unused-input  
+
+P2-25   12   (36 Entrée GPIO)  unused-input  
+
+P2-27   13   (37 Entrée GPIO)  unused-input  
+
+P2-29   14   (38 Entrée GPIO)  unused-input  
+
+P2-31   15   (39 Entrée GPIO)  unused-input  
+
+P2-33   16   (40 Entrée GPIO)  unused-input  
+
+P2-35   17   (0 Inutilisé)  unused-unused  
+
+P2-37   18   (0 Inutilisé)  unused-unused  
+
+P2-39   19   (0 Inutilisé)  unused-unused  
+
+P2-41   20   (0 Inutilisé)  unused-unused  
+
+P2-43   21   (0 Inutilisé)  unused-unused  
+
+P2-45   22   (0 Inutilisé)  unused-unused  
+
+P2-47   23   (0 Inutilisé)  unused-unused  
+
+
+pp1 Parport
+pin# 2 is connected to input signal:'home-a' 
+pin# 3 is connected to input signal:'home-z' 
+pin# 4 is connected to input signal:'home-y' 
+pin# 5 is connected to input signal:'home-x' 
+pin# 6 is connected to input signal:'max-x' -> inversé
+pin# 7 is connected to input signal:'min-x' -> inversé
+pin# 8 is connected to input signal:'unused-input' 
+pin# 9 is connected to input signal:'unused-input' 
+pin# 10 is connected to input signal:'unused-input' 
+pin# 11 is connected to input signal:'unused-input' 
+pin# 12 is connected to input signal:'unused-input' 
+pin# 13 is connected to input signal:'unused-input' 
+pin# 15 is connected to input signal:'unused-input' 
+pin# 1 is connected to output signal:'unused-output' 
+pin# 2 is connected to output signal:'unused-output' 
+pin# 3 is connected to output signal:'unused-output' 
+pin# 4 is connected to output signal:'unused-output' 
+pin# 5 is connected to output signal:'unused-output' 
+pin# 6 is connected to output signal:'unused-output' 
+pin# 7 is connected to output signal:'unused-output' 
+pin# 8 is connected to output signal:'unused-output' 
+pin# 9 is connected to output signal:'unused-output' 
+pin# 14 is connected to output signal:'unused-output' 
+pin# 16 is connected to output signal:'unused-output' 
+pin# 17 is connected to output signal:'unused-output' 
+

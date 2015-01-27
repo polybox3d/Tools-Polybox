@@ -1,0 +1,3 @@
+# Ces fichiers sont chargés après la GUI, dans leur ordre d'apparition
+
+source custom_postgui.hal
