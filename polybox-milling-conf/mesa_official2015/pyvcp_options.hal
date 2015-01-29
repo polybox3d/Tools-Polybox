@@ -1,0 +1,11 @@
+# _NE PAS_ inclure vos commandes HAL ici
+# Placez vos commandes HAL personnalisées dans custom_postgui.hal
+# Les commandes de ce fichier seront exécutées après le chargement de la GUI
+
+# **** Réglage de l'affichage de vitesse broche avec pyvcp -START ****
+
+net absolute-spindle-vel    =>    pyvcp.spindle-speed
+net spindle-at-speed        =>    pyvcp.spindle-at-speed-led
+
+# **** Réglage de vitesse broche affiché avec pyvcp -END ****
+

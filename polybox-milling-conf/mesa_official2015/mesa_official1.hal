@@ -1,0 +1,292 @@
+# Généré par PNCconf le Thu Oct  9 11:51:11 2014
+# Si vous modifiez ce fichier, il sera
+# écrasé quand vous relancerez PNCconf
+
+loadrt trivkins
+loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES
+loadrt probe_parport
+loadrt hostmot2
+loadrt hm2_pci config=" num_encoders=0 num_pwmgens=0 num_3pwmgens=1 num_stepgens=5  " 
+setp     hm2_5i25.0.watchdog.timeout_ns 10000000
+loadrt hal_parport cfg="0xd000 in 0x378 out"
+
+loadrt pwmgen output_type=1
+
+loadrt abs names=abs.spindle
+loadrt lowpass names=lowpass.spindle
+
+addf parport.0.read servo-thread
+addf parport.1.read servo-thread
+addf parport.0.write servo-thread
+addf parport.1.write servo-thread
+
+addf hm2_5i25.0.read servo-thread
+addf hm2_5i25.0.write         servo-thread
+addf hm2_5i25.0.pet_watchdog  servo-thread
+
+addf motion-command-handler servo-thread
+addf motion-controller servo-thread
+
+addf abs.spindle                 servo-thread
+addf lowpass.spindle             servo-thread
+addf pwmgen.update servo-thread
+addf pwmgen.make-pulses base-thread
+net spindle-vel-cmd <= motion.spindle-speed-out => pwmgen.0.value
+net spindle-on <= motion.spindle-on => pwmgen.0.enable
+net spindle-pwm <= pwmgen.0.pwm
+setp pwmgen.0.pwm-freq 20000.0
+setp pwmgen.0.scale 9000
+setp pwmgen.0.dither-pwm true
+
+net spindle-pwm => parport.1.pin-01-out
+net spindle-cw <= motion.spindle-forward
+net spindle-on => parport.1.pin-02-out
+# external output signals
+
+# --- MACHINE-IS-ENABLED ---
+setp hm2_5i25.0.gpio.016.is_output true
+net machine-is-enabled hm2_5i25.0.gpio.016.out
+setp hm2_5i25.0.gpio.015.is_output true
+net machine-is-enabled hm2_5i25.0.gpio.015.out
+
+# external input signals
+
+
+# --- HOME-A ---
+net home-a     <= parport.0.pin-02-in-not
+
+# --- HOME-Z ---
+net home-z     <= parport.0.pin-03-in-not
+
+# --- HOME-Y ---
+net home-y     <= parport.0.pin-04-in-not
+
+# --- HOME-X ---
+net home-x     <= parport.0.pin-05-in-not
+
+# --- MAX-T ---
+net max-t     <= parport.0.pin-06-in
+
+# --- MIN-T ---
+net min-t     <= parport.0.pin-07-in
+
+#*******************
+#  AXIS X
+#*******************
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.00.dirsetup        [AXIS_0]DIRSETUP
+setp   hm2_5i25.0.stepgen.00.dirhold         [AXIS_0]DIRHOLD
+setp   hm2_5i25.0.stepgen.00.steplen         [AXIS_0]STEPLEN
+setp   hm2_5i25.0.stepgen.00.stepspace       [AXIS_0]STEPSPACE
+setp   hm2_5i25.0.stepgen.00.position-scale  [AXIS_0]STEP_SCALE
+setp   hm2_5i25.0.stepgen.00.step_type        0
+setp   hm2_5i25.0.stepgen.00.control-type     0
+setp   hm2_5i25.0.stepgen.00.maxaccel         [AXIS_0]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.00.maxvel           [AXIS_0]STEPGEN_MAXVEL
+
+net x-pos-fb     axis.0.motor-pos-fb   <=  hm2_5i25.0.stepgen.00.position-fb
+net x-pos-cmd    axis.0.motor-pos-cmd  =>  hm2_5i25.0.stepgen.00.position-cmd
+net x-enable     axis.0.amp-enable-out =>  hm2_5i25.0.stepgen.00.enable
+
+# ---setup home / limit switch signals---
+
+net home-x     =>  axis.0.home-sw-in
+net min-t     =>  axis.0.neg-lim-sw-in
+net max-t     =>  axis.0.pos-lim-sw-in
+
+#*******************
+#  AXIS Y
+#*******************
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.01.dirsetup        [AXIS_1]DIRSETUP
+setp   hm2_5i25.0.stepgen.01.dirhold         [AXIS_1]DIRHOLD
+setp   hm2_5i25.0.stepgen.01.steplen         [AXIS_1]STEPLEN
+setp   hm2_5i25.0.stepgen.01.stepspace       [AXIS_1]STEPSPACE
+setp   hm2_5i25.0.stepgen.01.position-scale  [AXIS_1]STEP_SCALE
+setp   hm2_5i25.0.stepgen.01.step_type        0
+setp   hm2_5i25.0.stepgen.01.control-type     0
+setp   hm2_5i25.0.stepgen.01.maxaccel         [AXIS_1]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.01.maxvel           [AXIS_1]STEPGEN_MAXVEL
+
+net y-pos-fb     axis.1.motor-pos-fb   <=  hm2_5i25.0.stepgen.01.position-fb
+net y-pos-cmd    axis.1.motor-pos-cmd  =>  hm2_5i25.0.stepgen.01.position-cmd
+net y-enable     axis.1.amp-enable-out =>  hm2_5i25.0.stepgen.01.enable
+
+# ---setup home / limit switch signals---
+
+net home-y     =>  axis.1.home-sw-in
+net min-t     =>  axis.1.neg-lim-sw-in
+net max-t     =>  axis.1.pos-lim-sw-in
+
+#*******************
+#  AXIS Z
+#*******************
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.02.dirsetup        [AXIS_2]DIRSETUP
+setp   hm2_5i25.0.stepgen.02.dirhold         [AXIS_2]DIRHOLD
+setp   hm2_5i25.0.stepgen.02.steplen         [AXIS_2]STEPLEN
+setp   hm2_5i25.0.stepgen.02.stepspace       [AXIS_2]STEPSPACE
+setp   hm2_5i25.0.stepgen.02.position-scale  [AXIS_2]STEP_SCALE
+setp   hm2_5i25.0.stepgen.02.step_type        0
+setp   hm2_5i25.0.stepgen.02.control-type     0
+setp   hm2_5i25.0.stepgen.02.maxaccel         [AXIS_2]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.02.maxvel           [AXIS_2]STEPGEN_MAXVEL
+
+net z-pos-fb     axis.2.motor-pos-fb   <=  hm2_5i25.0.stepgen.02.position-fb
+net z-pos-cmd    axis.2.motor-pos-cmd  =>  hm2_5i25.0.stepgen.02.position-cmd
+net z-enable     axis.2.amp-enable-out =>  hm2_5i25.0.stepgen.02.enable
+
+# ---setup home / limit switch signals---
+
+net home-z     =>  axis.2.home-sw-in
+net min-t     =>  axis.2.neg-lim-sw-in
+net max-t     =>  axis.2.pos-lim-sw-in
+
+
+#*******************
+#  AXIS A (RX)
+#*******************
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.03.dirsetup        [AXIS_3]DIRSETUP
+setp   hm2_5i25.0.stepgen.03.dirhold         [AXIS_3]DIRHOLD
+setp   hm2_5i25.0.stepgen.03.steplen         [AXIS_3]STEPLEN
+setp   hm2_5i25.0.stepgen.03.stepspace       [AXIS_3]STEPSPACE
+setp   hm2_5i25.0.stepgen.03.position-scale  [AXIS_3]STEP_SCALE
+setp   hm2_5i25.0.stepgen.03.step_type        0
+setp   hm2_5i25.0.stepgen.03.control-type     0
+setp   hm2_5i25.0.stepgen.03.maxaccel         [AXIS_3]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.03.maxvel           [AXIS_3]STEPGEN_MAXVEL
+
+net a-pos-fb     axis.3.motor-pos-fb   <=  hm2_5i25.0.stepgen.03.position-fb
+net a-pos-cmd    axis.3.motor-pos-cmd  =>  hm2_5i25.0.stepgen.03.position-cmd
+net a-enable     axis.3.amp-enable-out =>  hm2_5i25.0.stepgen.03.enable
+
+# ---setup home / limit switch signals---
+
+net home-a     =>  axis.3.home-sw-in
+net min-r     =>  axis.3.neg-lim-sw-in
+net max-r     =>  axis.3.pos-lim-sw-in
+
+
+#*******************
+#  AXIS B (RY)
+#*******************
+
+# Step Gen signals/setup
+
+setp   hm2_5i25.0.stepgen.04.dirsetup        [AXIS_4]DIRSETUP
+setp   hm2_5i25.0.stepgen.04.dirhold         [AXIS_4]DIRHOLD
+setp   hm2_5i25.0.stepgen.04.steplen         [AXIS_4]STEPLEN
+setp   hm2_5i25.0.stepgen.04.stepspace       [AXIS_4]STEPSPACE
+setp   hm2_5i25.0.stepgen.04.position-scale  [AXIS_4]STEP_SCALE
+setp   hm2_5i25.0.stepgen.04.step_type        0
+setp   hm2_5i25.0.stepgen.04.control-type     0
+setp   hm2_5i25.0.stepgen.04.maxaccel         [AXIS_4]STEPGEN_MAXACCEL
+setp   hm2_5i25.0.stepgen.04.maxvel           [AXIS_4]STEPGEN_MAXVEL
+
+net b-pos-fb     axis.4.motor-pos-fb   <=  hm2_5i25.0.stepgen.04.position-fb
+net b-pos-cmd    axis.4.motor-pos-cmd  =>  hm2_5i25.0.stepgen.04.position-cmd
+net b-enable     axis.4.amp-enable-out =>  hm2_5i25.0.stepgen.04.enable
+
+# ---setup home / limit switch signals---
+
+net home-b     =>  axis.4.home-sw-in
+net min-r     =>  axis.4.neg-lim-sw-in
+net max-r     =>  axis.4.pos-lim-sw-in
+
+
+#*******************
+#  SPINDLE S
+#*******************
+
+# ---setup spindle control signals---
+
+#net spindle-vel-cmd-rps    <=  motion.spindle-speed-out-rps
+net spindle-vel-cmd        <=  motion.spindle-speed-out
+net spindle-on             <=  motion.spindle-on
+net spindle-cw             <=  motion.spindle-forward
+net spindle-ccw            <=  motion.spindle-reverse
+net spindle-brake          <=  motion.spindle-brake
+net spindle-revs           =>  motion.spindle-revs
+net spindle-at-speed       =>  motion.spindle-at-speed
+net spindle-vel-fb         =>  motion.spindle-speed-in
+net spindle-index-enable  <=>  motion.spindle-index-enable
+
+#  Pas de codeur de broche spécifié, la vitesse de broche COMMANDEE depuis LinuxCNC sera utilisée
+#  La vitesse COMMANDEE est signée, un composant absolu sera utilisé pour enlever le signe
+
+net spindle-vel-cmd         =>    abs.spindle.in
+net absolute-spindle-vel    <=    abs.spindle.out
+
+# ---Setup spindle at speed signals---
+
+sets spindle-at-speed true
+
+
+#******************************
+#connections de signaux divers
+#******************************
+
+#  ---signaux HALUI---
+
+net joint-select-a        halui.joint.0.select
+net x-is-homed            halui.joint.0.is-homed
+net jog-x-pos             halui.jog.0.plus
+net jog-x-neg             halui.jog.0.minus
+net jog-x-analog          halui.jog.0.analog
+net joint-select-b        halui.joint.1.select
+net y-is-homed            halui.joint.1.is-homed
+net jog-y-pos             halui.jog.1.plus
+net jog-y-neg             halui.jog.1.minus
+net jog-y-analog          halui.jog.1.analog
+net joint-select-c        halui.joint.2.select
+net z-is-homed            halui.joint.2.is-homed
+net jog-z-pos             halui.jog.2.plus
+net jog-z-neg             halui.jog.2.minus
+net jog-z-analog          halui.jog.2.analog
+net jog-selected-pos      halui.jog.selected.plus
+net jog-selected-neg      halui.jog.selected.minus
+net spindle-manual-cw     halui.spindle.forward
+net spindle-manual-ccw    halui.spindle.reverse
+net spindle-manual-stop   halui.spindle.stop
+net machine-is-on         halui.machine.is-on
+net jog-speed             halui.jog-speed 
+net MDI-mode              halui.mode.is-mdi
+
+#  ---signaux d'arrosage---
+
+net coolant-mist      <=  iocontrol.0.coolant-mist
+net coolant-flood     <=  iocontrol.0.coolant-flood
+
+#  ---signal de sonde---
+
+net probe-in     =>  motion.probe-input
+
+#  ---signaux contrôle mouvement---
+
+net in-position               <=  motion.in-position
+net machine-is-enabled        <=  motion.motion-enabled
+
+#  ---signaux entrée / sortie numérique---
+
+#  ---signaux d'A/U---
+
+net estop-out     <=  iocontrol.0.user-enable-out
+net estop-out     =>  iocontrol.0.emc-enable-in
+
+#  ---signaux changeur manuel d'outil---
+
+loadusr -W hal_manualtoolchange
+net tool-change-request     iocontrol.0.tool-change       =>  hal_manualtoolchange.change
+net tool-change-confirmed   iocontrol.0.tool-changed      <=  hal_manualtoolchange.changed
+net tool-number             iocontrol.0.tool-prep-number  =>  hal_manualtoolchange.number
+net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared
+

@@ -1,0 +1,4 @@
+# Ces fichiers sont chargés après la GUI, dans leur ordre d'apparition
+
+source pyvcp_options.hal
+source custom_postgui.hal
