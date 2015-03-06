@@ -41,15 +41,6 @@ echoC "$BLU" "===>Update RC file"
 sudo update-rc.d sys-update defaults
 
 
-#==== Screen+touchscreen
-echoC "$BLU" "=====>Configure Xorg and TouchScreen."
-resetC
-sudo cp $MY_DIR/10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
-sudo cp $MY_DIR/xorg.conf /etc/X11/xorg.conf
-
-
-
-
 #===Create Desktop/icon
 echoC "$BLU" "=====>Create and setup Desktop Icon ."
 resetC
@@ -66,6 +57,20 @@ xdg-desktop-icon install --novendor plbx-dropbox.desktop
 
 #change default browser
 xdg-settings set default-web-browser firefox.desktop
+
+#==== Screen+touchscreen
+echoC "$BLU" "=====>Configure Xorg and TouchScreen."
+resetC
+cd ~/
+git clone https://github.com/tias/xinput_calibrator.git
+cd xinput_calibrator
+./autogen.sh
+make
+./src/xinput_calibrator
+
+cd $MY_DIR
+sudo cp $MY_DIR/10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
+sudo cp $MY_DIR/xorg.conf /etc/X11/xorg.conf
 
 #add menu entries for KMenu
 ./setup-menu.sh
