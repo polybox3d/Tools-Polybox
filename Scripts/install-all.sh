@@ -48,7 +48,11 @@ while [[ "$current_state" != "Done" ]]; do
 	cnc-1 )
 	    ./CNC/install-cnc.sh
 	    close_if_error
-	    	    ./install-cambam.sh
+	    echo "cnc-3" > $state_file;;
+	cnc-3 )
+	    ./CNC/install-cnc-3.sh
+	    close_if_error
+	    ./install-cambam.sh
 	    close_if_error
 	    echo "scan" > $state_file;;
 	scan )
