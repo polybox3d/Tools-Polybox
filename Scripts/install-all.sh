@@ -48,32 +48,8 @@ while [[ "$current_state" != "Done" ]]; do
 	cnc-1 )
 	    ./CNC/install-cnc.sh
 	    close_if_error
-	    echoC "$ROSE" "~~~~~~~~~~>I'm going to restart your computer";
-	    echo "cnc-2" > $state_file;
-	    echo "You need to restart this script after the reboot to end the installation.";
-	    resetC
-	    echoC "$BlU" "Restart in 10s...";
-	    sleep 5
-	    echoC "$BlU" "5s...";
-	    sleep 5
-	    sudo shutdown -r now;;
-	cnc-2 )
-	    ./CNC/install-cnc-2.sh
+	    	    ./install-cambam.sh
 	    close_if_error
-	    echo "cnc-3" > $state_file;
-	    echo "You need to restart this script after the reboot to end the installation.";
-	    resetC
-	    echoC "$BlU" "Restart in 10s...";
-	    sleep 5
-	    echoC "$BlU" "5s...";
-	    sleep 5
-	    sudo shutdown -r now;;
-	cnc-3 )
-	    ./CNC/install-cnc-3.sh
-	    close_if_error
-	    ./install-cambam.sh
-	    close_if_error
-#	    ./install-joypadoverlay.sh
 	    echo "scan" > $state_file;;
 	scan )
 	    ./install-opencv.sh
