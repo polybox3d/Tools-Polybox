@@ -27,32 +27,3 @@ print_check_error
 sudo pip install ino
 print_check_error
 
-echoC "$BLU" "\n
-#########################################################\n
-# RTAI Kernel Packages\n
-# SebKuzminsky & LinuxCNC team \n
-#  For Ubuntu 12.04.4 Precise \n
-#\n
-# Special thanks to him and his team. Really !\n\n
-# Link: http://wiki.linuxcnc.org/cgi-bin/wiki.pl?LinuxCNC_On_Ubuntu_Precise
-# Date: Jul 2014
-#########################################################\n"
-resetC
-
-#bring the machine up to date with the latest packages in Ubuntu Precise. 
-sudo apt-get update
-sudo apt-get dist-upgrade
-print_check_error
-#Create a file called /etc/apt/sources.list.d/linuxcnc.list, containing the line: deb http://linuxcnc.org precise base
-sudo sh -c 'echo "deb http://linuxcnc.org precise base" >> /etc/apt/sources.list.d/linuxcnc.list'
-#Add the LinuxCNC Archive Signing Key to your apt keyring
-sudo apt-key adv --keyserver hkp://keys.gnupg.net --recv-key 8f374fef
-sudo apt-get update
-#REBOOT
-sudo adduser "$USER" kmem
-    
-print_bye
-
-echoC "$ROSE" "You need to restart your computer now."
-resetC
-
