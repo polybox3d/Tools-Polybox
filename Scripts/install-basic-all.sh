@@ -36,7 +36,13 @@ sudo apt-get -y install vlc picocom glade python-setuptools socat
 print_check_error
 
 echoC "$BLU" "*Firefox: "
+sudo apt-get purge iceweasel
+sudo sh -c 'echo "http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main" >> /etc/apt/sources.list.d/firefox.list'
+sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com C1289A29
+sudo apt-get update
+sudo apt-get -y install firefox-mozilla-build
 
+print_check_error
 
 echoC "$BLU" "*Documentation: "
 resetC
