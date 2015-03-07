@@ -94,9 +94,12 @@ print_check_error
 sudo apt-get -y upgrade
 print_check_error
 
-sudo apt-get -y install qtdeclarative5-dev qtmobility-dev
+#For debian wheezy stable
+sudo sh -c 'echo "deb http://http.debian.net/debian wheezy-backports main contrib non-free" > /etc/apt/sources.list.d/backports.list '
+sudo apt-get update
+sudo apt-get -t wheezy-backports -y install qtdeclarative5-dev qtmobility-dev
 print_check_error
-sudo apt-get -y install qt5-default qttools5-dev-tools qtmultimedia5-dev libqt5opengl5-dev mesa-common-dev qtcreator
+sudo apt-get -t wheezy-backports -y install qt5-default qttools5-dev-tools qtmultimedia5-dev libqt5opengl5-dev mesa-common-dev qtcreator
 print_check_error
 #Qt4.x
 #sudo apt-get install libqt4-dev qt4-qmake r-base-dev libcurl4-gnutls-dev
