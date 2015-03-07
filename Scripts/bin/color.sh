@@ -12,7 +12,7 @@ CYAN="\\033[1;36m"
 
 
 function echoC() {
-    echo -e $1 $2
+    echo -e "$1" "$2"
 }
 
 function resetC() {

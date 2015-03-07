@@ -15,8 +15,8 @@ resetC
 
 echoC "$BLU" "===>Copy script files"
 resetC
-sudo cp virtu-serial /usr/sbin/virtu-serial
-sudo cp virtu-serial-deamon /etc/init.d/virtu-serial
+sudo cp $MY_DIR/virtu-serial /usr/sbin/virtu-serial
+sudo cp $MY_DIR/virtu-serial-deamon /etc/init.d/virtu-serial
 #give right
 sudo chmod +x /etc/init.d/virtu-serial
 #update rc file for auto-start at boot

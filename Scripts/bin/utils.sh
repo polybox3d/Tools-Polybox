@@ -2,7 +2,7 @@
 
 
 function print_check_error() {
-   RET_ERROR=$?
+    RET_ERROR=$?
     if [ $RET_ERROR -ne 0 ]; then
 	echoC "$RED" "=====>ERROR [$RET_ERROR]. You should check why."
 	echo "Script aborted."

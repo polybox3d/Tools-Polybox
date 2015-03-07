@@ -9,6 +9,7 @@ source $MY_DIR/bin/utils.sh
 echoC "$BLU" "#########################################\n
 #\n
 # Install all script. \n
+# Tested For Debian 7 (Wheezy), but can works on Ubuntu 12.04 LTS with minor changes
 # -this script will start each install script 1 by 1\n
 # Then, get, configure, compile and install tools you need\n
 # This script will restart your computer several time\n
@@ -16,6 +17,22 @@ echoC "$BLU" "#########################################\n
 # after each restart (from the script)\n
 #\n
 ##########################################\n"
+
+# check OS
+if [ `lsb_release -d | grep Debian | wc -l` -gt 0  ];
+then
+	echoC "$GREEN" "===> You are Using Debian OS :" 
+	resetC
+elif [ `lsb_release -d | grep Ubuntu | wc -l` -gt 0  ];	
+then
+	echoC "$GREEN" "===> You are Using Ubuntu OS :" 
+	resetC
+else
+	echoC "$RED" "=====>ERROR. You are not using Debian 32b or Ubuntu 32b ..."
+	echo "Script aborted."
+	resetC
+fi
+
 
 while [[ "$current_state" != "Done" ]]; do
 
@@ -83,6 +100,15 @@ while [[ "$current_state" != "Done" ]]; do
 done
 
 print_bye
+
+echoC "$ROSE" "**************************************"
+echo ""
+echo "Okay ! Your computer is ready and fully setup."
+echo "You should restart it to end the process."
+echo ""
+echo "**************************************"
+echo ""
+resetC
 
 exit 0
 
