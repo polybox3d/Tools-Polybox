@@ -26,7 +26,13 @@ fi
 echoC "$BLU" "===>Install basics paquages..." 
 resetC
 
+sudo sh -c 'echo "deb http://www.deb-multimedia.org wheezy main non-free" >> /etc/apt/sources.list'
+sudo sh -c 'echo "deb-src http://www.deb-multimedia.org wheezy main non-free" >> /etc/apt/sources.list'
 sudo apt-get update
+sudo apt-get -y install --force-yes deb-multimedia-keyring
+sudo apt-get update
+
+
 sudo apt-get -y install git subversion emacs geany vim gcc g++ php5-dev python cmake git-core git-gui dpkg-dev python python-tk git-core python-serial python-wxgtk2.8 python-pyglet python-tornado python-setuptools python-libxml2 python-gobject avahi-daemon libavahi-compat-libdnssd1 python-pip
 print_check_error
 echoC "$BLU" "*Tools: "
@@ -37,7 +43,7 @@ print_check_error
 
 echoC "$BLU" "*Firefox: "
 sudo apt-get purge iceweasel
-sudo sh -c 'echo "http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main" >> /etc/apt/sources.list.d/firefox.list'
+sudo sh -c 'echo "deb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main" > /etc/apt/sources.list.d/firefox.list'
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com C1289A29
 sudo apt-get update
 sudo apt-get -y install firefox-mozilla-build
