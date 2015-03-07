@@ -61,7 +61,9 @@ print_check_error
 
 cd $CURRENT_PWD
 sudo cp $MY_DIR/10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
-sudo cp $MY_DIR/xorg.conf /etc/X11/xorg.conf
+
+## --/ BAD \--
+####sudo cp $MY_DIR/xorg.conf /etc/X11/xorg.conf
 
 #======================= DESKTOP =======================================
 
@@ -83,6 +85,24 @@ _EOF
 qdbus org.kde.plasma-desktop /App local.PlasmaApp.loadScriptInInteractiveConsole "$js" > /dev/null
 xdotool search --name "Desktop Shell Scripting Console" windowactivate --sync key --clearmodifiers ctrl+e key ctrl+w
 rm -f "$js"
+
+#==== Widget ====
+
+js=$(mktemp)
+cat > $js <<_EOF
+var wallpaper = "";
+var activity = activities()[0];
+folderview = activity.addWidget ("folderview");
+folderview.writeConfig("geometry", "50,50,600,400");
+folderview.writeConfig("url", "Desktop://");
+activity.reloadConfig();
+_EOF
+qdbus org.kde.plasma-desktop /App local.PlasmaApp.loadScriptInInteractiveConsole "$js" > /dev/null
+xdotool search --name "Desktop Shell Scripting Console" windowactivate --sync key --clearmodifiers ctrl+e key ctrl+w
+rm -f "$js"
+
+
+
 
 
 #=====Create Desktop/icon =====

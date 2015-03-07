@@ -21,5 +21,7 @@ fi
 
 #===Copy miling configuration file===
 mkdir $LINUX_CNC_FOLDER
+print_check_error
 mkdir $LINUX_CNC_FOLDER/configs/
-#cp -R ../../polybox-milling-conf $LINUX_CNC_FOLDER/configs/Polybox-v1
+print_check_error
+cp -R ../../polybox-milling-conf/ $LINUX_CNC_FOLDER/configs/Polybox/
