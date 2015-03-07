@@ -69,7 +69,7 @@ print_check_error
 sudo apt-get -y install libeigen3-dev build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy python-tk libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common python-gtkglext1 python-vte 
 print_check_error
 
-sudo apt-get -y install gnome-icon-theme-full gstreamer0.10-plugins-good gstreamer0.10-plugins-bad gstreamer0.10-x python-gst0.10 gstreamer-tools gstreamer0.10-plugins-base
+sudo apt-get -y install gnome-icon-theme gnome-icon-theme-extras gstreamer0.10-plugins-good gstreamer0.10-plugins-bad gstreamer0.10-x python-gst0.10 gstreamer-tools gstreamer0.10-plugins-base
 print_check_error
 
 sudo easy_install py-notify
@@ -79,6 +79,7 @@ sudo apt-get -y install libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-d
 print_check_error
 
 echoC "$BLU" "*Mono: "
+resetC
 sudo apt-get -y install mono-runtime libmono-system-windows-forms4.0-cil libmono-system-web4.0-cil libmono-system-design4.0-cil libmono-system-numerics4.0-cil
 print_check_error
 
