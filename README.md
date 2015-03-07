@@ -3,7 +3,7 @@ Tools-Polybox
 
 This repository contains some scripts usefull
 
-If you start with a fresh 12.04 Ubuntu, just start the main script by calling 'make':
+If you start with a fresh LinuxCNC live image (Debian Wheezy (7.x) ), just start the main script by calling 'make':
 
 make install
 
@@ -34,13 +34,10 @@ Dernière modification de la documentation : 1 Septembre 2014.
 Plateforme
 --------------
 
-Les scripts et la chaine d'installation a été dévelopés et testés pour une Ubunutu 12.04 LTS, 32bits avec KDE comme interface graphique. 
+Les scripts et la chaine d'installation a été dévelopés et testés pour une Debian Wheezy (7.x) LinuxCNCLive image , 32bits avec KDE comme interface graphique. 
 Cependant, il est tout a fait possible d'utiliser les scripts sur un autre Linux, modulo des modifications propre à la cible. 
 
-Le système d'exploitation est récupérable a cette adresse :
-  * ISO : http://cdimage.ubuntu.com/kubuntu/releases/precise/release/kubuntu-12.04.4-desktop-i386.iso
-  * Torrent : http://cdimage.ubuntu.com/kubuntu/releases/precise/release/kubuntu-12.04.4-desktop-i386.iso.torrent
-  * Autre : http://cdimage.ubuntu.com/kubuntu/releases/precise/release/
+Le système d'exploitation est récupérable sur le site de linuxCNC.
 
 Installation (Rapide)
 ----------------------
