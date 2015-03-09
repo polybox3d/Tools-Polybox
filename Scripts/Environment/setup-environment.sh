@@ -67,6 +67,17 @@ sudo cp $MY_DIR/10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
 
 #======================= DESKTOP =======================================
 
+#theme for GTK
+sudo apt-get -y install --force-yes kde-standard kdm kde-l10n-fr
+print_check_error
+#french
+sudo apt-get -y install --force-yes kde-l10n-fr
+print_check_error
+#Gtk theme for kde
+sudo apt-get install gtk2-engines-oxygen gtk3-engines-oxygen qtcurve kde-config-gtk-style
+print_check_error
+
+
 # xdotool emulate keyboard and mouse
 sudo apt-get -y install qdbus-qt5 xdotool
 print_check_error
