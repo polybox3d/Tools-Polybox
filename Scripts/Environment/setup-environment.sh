@@ -97,8 +97,10 @@ qdbus org.kde.plasma-desktop /App local.PlasmaApp.loadScriptInInteractiveConsole
 xdotool search --name "Desktop Shell Scripting Console" windowactivate --sync key --clearmodifiers ctrl+e key ctrl+w
 rm -f "$js"
 
-#==== Widget ====
+#==== Widgets ====
 
+
+# add desktop folderview
 js=$(mktemp)
 cat > $js <<_EOF
 var wallpaper = "";
@@ -112,7 +114,24 @@ qdbus org.kde.plasma-desktop /App local.PlasmaApp.loadScriptInInteractiveConsole
 xdotool search --name "Desktop Shell Scripting Console" windowactivate --sync key --clearmodifiers ctrl+e key ctrl+w
 rm -f "$js"
 
+# remove activities manager from panel 
 
+js=$(mktemp)
+cat > $js <<_EOF
+panel = panelById(panelIds[0]);
+panel.widgets().forEach(function(y) 
+{ 
+  print(y.type);
+  if( y.type == 'org.kde.showActivityManager')
+  {
+    y.remove();
+  }
+}
+);
+_EOF
+qdbus org.kde.plasma-desktop /App local.PlasmaApp.loadScriptInInteractiveConsole "$js" > /dev/null
+xdotool search --name "Desktop Shell Scripting Console" windowactivate --sync key --clearmodifiers ctrl+e key ctrl+w
+rm -f "$js"
 
 
 
