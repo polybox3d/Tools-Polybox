@@ -25,7 +25,8 @@ echoC "$BLU" "===>Download Printer Software..."
 resetC
 
 cd ~
-wget -O repetierHostLinux.tgz 'http://www.repetier.com/?wpdmact=process&did=NDAuaG90bGluaw=='
+#wget -O repetierHostLinux.tgz 'http://www.repetier.com/?wpdmact=process&did=NDAuaG90bGluaw=='
+wget -O repetierHostLinux.tgz 'http://www.repetier.com/w/?wpdmdl=1785'
 tar -xzf repetierHostLinux.tgz
 cd RepetierHost
 sh configureFirst.sh
