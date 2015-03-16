@@ -44,6 +44,7 @@ echoC "$BLU" "=====>Configure Xorg and TouchScreen." ; resetC
 CURRENT_PWD=`pwd`
 cd $HOME
 
+####### XINPUT_CALIBRATOR
 #if folder doesnt exist, we gonna fetch it.
 if [ ! -d "$HOME/xinput_calibrator" ]; then
 	git clone https://github.com/tias/xinput_calibrator.git
@@ -57,8 +58,25 @@ cd xinput_calibrator
 print_check_error
 make
 print_check_error
-./src/xinput_calibrator
 
+####### TOUCHSCREENCALIBRATOR
+cd $HOME
+if [ ! -d "$HOME/TouchScreenCalibrator" ]; then
+	git clone https://github.com/polybox3d/TouchScreenCalibrator.git
+	print_check_error
+else
+	echoC "$ROSE" "xinput_calibrator already exists. Continuing."
+	resetC
+fi
+
+cd TouchScreenCalibrator
+qmake
+print_check_error
+make
+print_check_error
+
+
+## SETUP FACTORY SETUP FOR TOUCHSCREEN
 cd $CURRENT_PWD
 sudo cp $MY_DIR/10-evdev.conf /usr/share/X11/xorg.conf.d/10-evdev.conf
 

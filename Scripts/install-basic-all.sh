@@ -38,7 +38,7 @@ print_check_error
 echoC "$BLU" "*Tools: "
 resetC
 
-sudo apt-get -y install vlc picocom glade python-setuptools socat
+sudo apt-get -y install vlc picocom glade python-setuptools socat xinput
 print_check_error
 
 echoC "$BLU" "*Firefox: "
