@@ -25,10 +25,28 @@ echoC "$BLU" "===>Download Printer Software..."
 resetC
 
 cd ~
-wget -O repetierHostLinux.tgz 'http://www.repetier.com/?wpdmact=process&did=NDAuaG90bGluaw=='
+# http://www.repetier.com/download-now/
+# Repetier-Host Linux 1.0.6 
+# If you like Repetier, you should donate !
+echoC "$GREEN" "==========================================================" 
+echo " The script will now download Repetier-Host for Linux."
+echo " Repetier-Host is an opensource software for 3D printer. It allows the user to print STL file and visualize the evolution of the print." 
+echo -e "This is NOT a Polybox3D software. If you wish to support the further development of this free software to obtain updates and new features\n in future, we would appreciate a voluntary donation. Donate quick and easy via PayPal, simply enter the desired amount" 
+echo "________________________________________" 
+echo " * Web Site http://www.repetier.com/"
+echo " * Repetier-Host Linux 1.0.6"
+echo " * Donate :  http://www.repetier.com/download-software/"
+echo "==========================================================" 
+resetC
+
+wget -O repetierHostLinux.tgz 'http://www.repetier.com/w/?wpdmdl=1785'
 tar -xzf repetierHostLinux.tgz
+print_check_error
 cd RepetierHost
+print_check_error
 sh configureFirst.sh
+print_check_error
+
 
 sudo usermod -a -G dialout $(whoami)
 
