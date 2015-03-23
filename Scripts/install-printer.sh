@@ -70,11 +70,21 @@ echo "Cleaning up temporary installation files..."
 rm -rf /tmp/41_reprap_python_beanshell.zip
 
 
+cd ~
+echoC "$BLU" "===>Download Cura..." 
+resetC
+echoC "$ROSE" "---[Version: 15.02.1]---" 
+resetC
+wget https://software.ultimaker.com/current/cura_15.02.1-debian_i386.deb
+sudo dpkg -i cura_15.02.1-debian_i386.deb
+rm cura_15.02.1-debian_i386.deb
+
 
 echoC "$BLU" "===>Download Printer Firmware..." 
 resetC
 cd ~
 git clone https://github.com/skapin/Repetier-Firmware.git
+
 
 
 
