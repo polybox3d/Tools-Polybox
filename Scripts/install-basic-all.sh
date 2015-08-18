@@ -38,7 +38,7 @@ print_check_error
 echoC "$BLU" "*Tools: "
 resetC
 
-sudo apt-get -y install vlc picocom glade python-setuptools socat xinput
+sudo apt-get -y install picocom glade python-setuptools socat xinput
 print_check_error
 
 echoC "$BLU" "*Firefox: "
@@ -75,7 +75,8 @@ print_check_error
 sudo easy_install py-notify
 
 
-sudo apt-get -y install libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libpulse-dev
+sudo apt-get -y install libv4l-dev libdc1394-22-dev libavcodec-dev libswscale-dev libpulse-dev
+#libavformat-dev 
 print_check_error
 
 echoC "$BLU" "*Mono: "

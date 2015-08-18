@@ -61,6 +61,8 @@ while [[ "$current_state" != "Done" ]]; do
 	basic )
 	    ./install-basic-all.sh
 	    close_if_error
+	    ./install-opencv.sh
+	    close_if_error
 	    echo "cnc-1" > $state_file;;
 	cnc-1 )
 	    ./CNC/install-cnc.sh
